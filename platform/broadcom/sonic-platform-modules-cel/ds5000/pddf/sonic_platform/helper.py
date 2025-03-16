@@ -47,8 +47,8 @@ class APIHelper():
         
     def get_register_value(self, getreg_path, register):
         try:
-            with open(register, "w+") as fd:
-                fd.write(getreg_path)
+            with open(getreg_path, "w+") as fd:
+                fd.write(register)
                 fd.flush()
                 fd.seek(0)
                 return (True, fd.read().strip())
@@ -59,7 +59,7 @@ class APIHelper():
         
     def set_register_value(self, setreg_path, register, value):
         try:
-            with open(register, "w") as fd:
+            with open(setreg_path, "w") as fd:
                 set_str = register + " " + value
                 if fd.write() == len(set_str):
                     fd.flush()

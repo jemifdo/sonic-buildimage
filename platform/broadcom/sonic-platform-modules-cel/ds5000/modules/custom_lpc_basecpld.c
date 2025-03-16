@@ -36,12 +36,15 @@
 #define VERSION_ADDR        0xA100
 #define SCRATCH_ADDR        0xA101
 #define CARD_PRESENCE_ADDR  0xA108
+#define FAN1_PWM_ADDR       0xA140
 #define FAN1_LED_ADDR       0xA141
 #define FAN1_R_SPD_ADDR     0xA142
 #define FAN1_F_SPD_ADDR     0xA143
+#define FAN2_PWM_ADDR       0xA144
 #define FAN2_LED_ADDR       0xA145
 #define FAN2_R_SPD_ADDR     0xA146
 #define FAN2_F_SPD_ADDR     0xA147
+#define FAN3_PWM_ADDR       0xA148
 #define FAN3_LED_ADDR       0xA149
 #define FAN3_R_SPD_ADDR     0xA14A
 #define FAN3_F_SPD_ADDR     0xA14B
@@ -389,24 +392,42 @@ static DEVICE_ATTR_RW(alarm_led);
 static ssize_t fan_stat_led_show(struct device *dev, struct device_attribute *devattr,
                 char *buf)
 {
+    char *led_color = "unknown";
     unsigned char data = 0;
     mutex_lock(&cpld_data->cpld_lock);
-    data = inb(FAN_LED_ADDR);
+    data = inb(FAN_LED_ADDR) & 0x3;
     mutex_unlock(&cpld_data->cpld_lock);
-    return sprintf(buf, "0x%02x\n", data);
+
+    if (data == 0x3) {
+        led_color = "off";
+    } else if (data == 0x2) {
+        led_color = "amber";
+    } else if (data == 0x1) {
+        led_color = "green";
+    }
+
+    return sprintf(buf, "%s\n", led_color);
 }
 
 static ssize_t fan_stat_led_store(struct device *dev, struct device_attribute *devattr,
                 const char *buf, size_t count)
 {
-    unsigned char data;
-    char *last;
+    unsigned char led_status;
 
-    data = (uint8_t)strtoul(buf,&last,16);
+    if (sysfs_streq(buf, "off")) {
+        led_status = 0x03;
+    } else if (sysfs_streq(buf, "amber")) {
+        led_status = 0x02;
+    } else if (sysfs_streq(buf, "green")) {
+        led_status = 0x01;
+    } else {
+        count = -EINVAL;
+        return count;
+    }
+
     mutex_lock(&cpld_data->cpld_lock);
-    outb(data, FAN_LED_ADDR);
+    outb(led_status, FAN_LED_ADDR);
     mutex_unlock(&cpld_data->cpld_lock);
-    
     return count;
 }
 static DEVICE_ATTR_RW(fan_stat_led);
@@ -414,24 +435,42 @@ static DEVICE_ATTR_RW(fan_stat_led);
 static ssize_t fan1_led_show(struct device *dev, struct device_attribute *devattr,
                 char *buf)
 {
+    char *led_color = "unknown";
     unsigned char data = 0;
     mutex_lock(&cpld_data->cpld_lock);
-    data = inb(FAN1_LED_ADDR);
+    data = inb(FAN1_LED_ADDR) & 0x3;
     mutex_unlock(&cpld_data->cpld_lock);
-    return sprintf(buf, "0x%02x\n", data);
+
+    if (data == 0x0) {
+        led_color = "off";
+    } else if (data == 0x1) {
+        led_color = "green";
+    } else if (data == 0x2) {
+        led_color = "amber";
+    }
+
+    return sprintf(buf, "%s\n", led_color);
 }
 
 static ssize_t fan1_led_store(struct device *dev, struct device_attribute *devattr,
                 const char *buf, size_t count)
 {
-    unsigned char data;
-    char *last;
+    unsigned char led_status;
 
-    data = (uint8_t)strtoul(buf,&last,16);
+    if (sysfs_streq(buf, "off")) {
+        led_status = 0x04;
+    } else if (sysfs_streq(buf, "amber")) {
+        led_status = 0x05;
+    } else if (sysfs_streq(buf, "green")) {
+        led_status = 0x06;
+    } else {
+        count = -EINVAL;
+        return count;
+    }
+
     mutex_lock(&cpld_data->cpld_lock);
-    outb(data, FAN1_LED_ADDR);
+    outb(led_status, FAN1_LED_ADDR);
     mutex_unlock(&cpld_data->cpld_lock);
-    
     return count;
 }
 static DEVICE_ATTR_RW(fan1_led);
@@ -439,24 +478,42 @@ static DEVICE_ATTR_RW(fan1_led);
 static ssize_t fan2_led_show(struct device *dev, struct device_attribute *devattr,
                 char *buf)
 {
+    char *led_color = "unknown";
     unsigned char data = 0;
     mutex_lock(&cpld_data->cpld_lock);
-    data = inb(FAN2_LED_ADDR);
+    data = inb(FAN2_LED_ADDR) & 0x3;
     mutex_unlock(&cpld_data->cpld_lock);
-    return sprintf(buf, "0x%02x\n", data);
+
+    if (data == 0x0) {
+        led_color = "off";
+    } else if (data == 0x1) {
+        led_color = "green";
+    } else if (data == 0x2) {
+        led_color = "amber";
+    }
+
+    return sprintf(buf, "%s\n", led_color);
 }
 
 static ssize_t fan2_led_store(struct device *dev, struct device_attribute *devattr,
                 const char *buf, size_t count)
 {
-    unsigned char data;
-    char *last;
+    unsigned char led_status;
 
-    data = (uint8_t)strtoul(buf,&last,16);
+    if (sysfs_streq(buf, "off")) {
+        led_status = 0x04;
+    } else if (sysfs_streq(buf, "amber")) {
+        led_status = 0x05;
+    } else if (sysfs_streq(buf, "green")) {
+        led_status = 0x06;
+    } else {
+        count = -EINVAL;
+        return count;
+    }
+
     mutex_lock(&cpld_data->cpld_lock);
-    outb(data, FAN2_LED_ADDR);
+    outb(led_status, FAN2_LED_ADDR);
     mutex_unlock(&cpld_data->cpld_lock);
-    
     return count;
 }
 static DEVICE_ATTR_RW(fan2_led);
@@ -464,24 +521,42 @@ static DEVICE_ATTR_RW(fan2_led);
 static ssize_t fan3_led_show(struct device *dev, struct device_attribute *devattr,
                 char *buf)
 {
+    char *led_color = "unknown";
     unsigned char data = 0;
     mutex_lock(&cpld_data->cpld_lock);
-    data = inb(FAN3_LED_ADDR);
+    data = inb(FAN3_LED_ADDR) & 0x3;
     mutex_unlock(&cpld_data->cpld_lock);
-    return sprintf(buf, "0x%02x\n", data);
+
+    if (data == 0x0) {
+        led_color = "off";
+    } else if (data == 0x1) {
+        led_color = "green";
+    } else if (data == 0x2) {
+        led_color = "amber";
+    }
+
+    return sprintf(buf, "%s\n", led_color);
 }
 
 static ssize_t fan3_led_store(struct device *dev, struct device_attribute *devattr,
                 const char *buf, size_t count)
 {
-    unsigned char data;
-    char *last;
+    unsigned char led_status;
 
-    data = (uint8_t)strtoul(buf,&last,16);
+    if (sysfs_streq(buf, "off")) {
+        led_status = 0x04;
+    } else if (sysfs_streq(buf, "amber")) {
+        led_status = 0x05;
+    } else if (sysfs_streq(buf, "green")) {
+        led_status = 0x06;
+    } else {
+        count = -EINVAL;
+        return count;
+    }
+
     mutex_lock(&cpld_data->cpld_lock);
-    outb(data, FAN3_LED_ADDR);
+    outb(led_status, FAN3_LED_ADDR);
     mutex_unlock(&cpld_data->cpld_lock);
-    
     return count;
 }
 static DEVICE_ATTR_RW(fan3_led);
@@ -581,6 +656,81 @@ static ssize_t psu4_pwr_ok_stat_show(struct device *dev, struct device_attribute
     return sprintf(buf, "%d\n", data);
 }
 static DEVICE_ATTR_RO(psu4_pwr_ok_stat);
+
+static ssize_t fan1_pwm_show(struct device *dev, struct device_attribute *devattr,
+                char *buf)
+{
+    unsigned char data = 0;
+    mutex_lock(&cpld_data->cpld_lock);
+    data = inb(FAN1_PWM_ADDR);
+    mutex_unlock(&cpld_data->cpld_lock);
+    return sprintf(buf, "0x%02x\n", data);
+}
+
+static ssize_t fan1_pwm_store(struct device *dev, struct device_attribute *devattr,
+                const char *buf, size_t count)
+{
+    unsigned char data;
+    char *last;
+
+    data = (uint8_t)strtoul(buf,&last,16);
+    mutex_lock(&cpld_data->cpld_lock);
+    outb(data, FAN1_PWM_ADDR);
+    mutex_unlock(&cpld_data->cpld_lock);
+    
+    return count;
+}
+static DEVICE_ATTR_RW(fan1_pwm);
+
+static ssize_t fan2_pwm_show(struct device *dev, struct device_attribute *devattr,
+                char *buf)
+{
+    unsigned char data = 0;
+    mutex_lock(&cpld_data->cpld_lock);
+    data = inb(FAN2_PWM_ADDR);
+    mutex_unlock(&cpld_data->cpld_lock);
+    return sprintf(buf, "0x%02x\n", data);
+}
+
+static ssize_t fan2_pwm_store(struct device *dev, struct device_attribute *devattr,
+                const char *buf, size_t count)
+{
+    unsigned char data;
+    char *last;
+
+    data = (uint8_t)strtoul(buf,&last,16);
+    mutex_lock(&cpld_data->cpld_lock);
+    outb(data, FAN2_PWM_ADDR);
+    mutex_unlock(&cpld_data->cpld_lock);
+    
+    return count;
+}
+static DEVICE_ATTR_RW(fan2_pwm);
+
+static ssize_t fan3_pwm_show(struct device *dev, struct device_attribute *devattr,
+                char *buf)
+{
+    unsigned char data = 0;
+    mutex_lock(&cpld_data->cpld_lock);
+    data = inb(FAN3_PWM_ADDR);
+    mutex_unlock(&cpld_data->cpld_lock);
+    return sprintf(buf, "0x%02x\n", data);
+}
+
+static ssize_t fan3_pwm_store(struct device *dev, struct device_attribute *devattr,
+                const char *buf, size_t count)
+{
+    unsigned char data;
+    char *last;
+
+    data = (uint8_t)strtoul(buf,&last,16);
+    mutex_lock(&cpld_data->cpld_lock);
+    outb(data, FAN3_PWM_ADDR);
+    mutex_unlock(&cpld_data->cpld_lock);
+    
+    return count;
+}
+static DEVICE_ATTR_RW(fan3_pwm);
 
 static ssize_t fan1_rear_speed_show(struct device *dev, struct device_attribute *devattr,
                 char *buf)
@@ -741,6 +891,9 @@ static struct attribute *cpld_b_attrs[] = {
     &dev_attr_psu2_pwr_ok_stat.attr,
     &dev_attr_psu3_pwr_ok_stat.attr,
     &dev_attr_psu4_pwr_ok_stat.attr,
+    &dev_attr_fan1_pwm.attr,
+    &dev_attr_fan2_pwm.attr,
+    &dev_attr_fan3_pwm.attr,
     &dev_attr_fan1_front_speed.attr,
     &dev_attr_fan1_rear_speed.attr,
     &dev_attr_fan2_front_speed.attr,

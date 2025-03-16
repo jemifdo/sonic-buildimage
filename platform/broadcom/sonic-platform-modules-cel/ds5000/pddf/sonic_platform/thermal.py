@@ -66,18 +66,6 @@ class Thermal(PddfThermal):
 
     # Provide the functions/variables below for which implementation is to be overwritten
     
-    def set_high_threshold(self, temperature):
-        return False
-
-    def set_low_threshold(self, temperature):
-        return False
-
-    def get_temperature(self):
-        if self._api_helper.with_bmc() and self.is_psu_thermal:
-            return PddfThermal.get_temperature(self) * 1000
-        else:
-            return PddfThermal.get_temperature(self)
-
     def get_high_threshold(self):
         thermal_data = SENSORS_THRESHOLD_MAP.get(self.get_name(), None)
         if thermal_data != None:
