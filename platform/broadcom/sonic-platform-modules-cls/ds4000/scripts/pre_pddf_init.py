@@ -6,6 +6,7 @@
 # @Function: Load pddf_custom_lpc_basecpld.ko, after confirming the BMC is in place,
 #            load different configuration files, and finally remove the driver.
 
+import shlex
 import subprocess
 import os
 import os.path
@@ -26,10 +27,12 @@ class PrePddfInit(object):
         status = True
         result = ""
         try:
-            p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            raw_data, err = p.communicate()
-            if err.decode("utf-8") == "":
-                result = raw_data.decode("utf-8").strip()
+            if isinstance(cmd, list):
+                raw_data = subprocess.check_output(cmd, universal_newlines=True, stderr=subprocess.STDOUT)
+            else:
+                raw_data = subprocess.check_output(shlex.split(cmd), universal_newlines=True, stderr=subprocess.STDOUT)
+            result = raw_data.strip()
+
         except Exception:
             status = False
         return status, result
@@ -63,7 +66,14 @@ class PrePddfInit(object):
         self.install_lpc_basecpld()
         if os.path.exists(self.bmc_exist_cmd):
             # "1": "absent", "0": "present"
-            sta, res = self.run_command("cat %s" % self.bmc_exist_cmd)
+            # sta, res = self.run_command("cat %s" % self.bmc_exist_cmd)
+            try:
+                with open(self.bmc_exist_cmd, "r") as f:
+                    res = f.read().strip()
+                    sta = True
+            except Exception as e:
+                res = ""
+                sta = False
             self.bmc_present = False if res == "1" else True
         self.uninstall_lpc_basecpld()
 

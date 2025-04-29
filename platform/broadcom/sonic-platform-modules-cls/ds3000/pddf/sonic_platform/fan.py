@@ -25,6 +25,25 @@ class Fan(PddfFan):
         # idx is 0-based
         PddfFan.__init__(self, tray_idx, fan_idx, pddf_data, pddf_plugin_data, is_psu_fan, psu_index)
         self._api_helper = APIHelper()
+    
+    def is_valid_num(self, num):
+        """
+        Check if the given number is valid
+        """
+        try:
+            float(num)
+            return True
+        except (ValueError, TypeError):
+            return False
+
+    def numeric(self, string):
+        try:
+            f = float(string)
+            if f.is_integer():
+                return int(f)
+            return f
+        except:       
+            return None
 
     def get_presence(self):
         """
@@ -74,9 +93,9 @@ class Fan(PddfFan):
         else:
             speed_rpm = self.get_speed_rpm()
             if self.fan_index == 1:
-                max_fan_rpm = eval(self.plugin_data['FAN']['FRONT_FAN_MAX_RPM_SPEED'])
+                max_fan_rpm = self.numeric(self.plugin_data['FAN']['FRONT_FAN_MAX_RPM_SPEED'])
             else:
-                max_fan_rpm = eval(self.plugin_data['FAN']['REAR_FAN_MAX_RPM_SPEED'])
+                max_fan_rpm = self.numeric(self.plugin_data['FAN']['REAR_FAN_MAX_RPM_SPEED'])
             speed_percentage = round(int((speed_rpm * 100) / max_fan_rpm))
             target_speed = speed_percentage
 
@@ -98,7 +117,7 @@ class Fan(PddfFan):
                 return 0
 
             output['status'] = output['status'].rstrip()
-            if output['status'].isalpha():
+            if output['status'].isalpha() or self.is_valid_num(output['status'])==False:
                 return 0
             else:
                 speed = int(float(output['status']))
@@ -116,7 +135,7 @@ class Fan(PddfFan):
                 return 0
 
             output['status'] = output['status'].rstrip()
-            if output['status'].isalpha():
+            if output['status'].isalpha() or self.is_valid_num(output['status'])==False:
                 return 0
             else:
                 speed = int(float(output['status']))
@@ -152,7 +171,7 @@ class Fan(PddfFan):
             print("Setting fan speed is not allowed !")
             return False
 
-        duty_cycle_to_pwm = eval(self.plugin_data['FAN']['duty_cycle_to_pwm'])
+        duty_cycle_to_pwm = self.numeric(self.plugin_data['FAN']['duty_cycle_to_pwm'])
         pwm = int(round(duty_cycle_to_pwm(speed)))
 
         if self._api_helper.is_bmc_present():
@@ -205,33 +224,33 @@ class Fan(PddfFan):
         else:
             return False
 
-    def set_status_led(self,color):
-        if self.is_psu_fan:
-            return super().set_status_led(color)
+    # def set_status_led(self,color):
+    #     if self.is_psu_fan:
+    #         return super().set_status_led(color)
 
-        if color == self.get_status_led():
-            return False
+    #     if color == self.get_status_led():
+    #         return False
 
-        if BMC_EXIST:
-            fan_led_color_map = {
-                'off': '00',
-                'green': '01',
-                'amber': '02',
-                'red': '02'
-            }
+    #     if BMC_EXIST:
+    #         fan_led_color_map = {
+    #             'off': '00',
+    #             'green': '01',
+    #             'amber': '02',
+    #             'red': '02'
+    #         }
 
-            fan_index_val = hex(self.fantray_index + 3)
+    #         fan_index_val = hex(self.fantray_index + 3)
 
-            color_val = fan_led_color_map.get(color.lower(), None)
+    #         color_val = fan_led_color_map.get(color.lower(), None)
 
-            if fan_index_val is None:
-                return False
+    #         if fan_index_val is None:
+    #             return False
 
-            if color_val is None:
-                return False
+    #         if color_val is None:
+    #             return False
 
-            status, _ = self._api_helper.ipmi_raw(SET_FAN_STATUS_LED_CMD.format(fan_index_val,color_val))
+    #         status, _ = self._api_helper.ipmi_raw(SET_FAN_STATUS_LED_CMD.format(fan_index_val,color_val))
 
-            return status
-        else:
-            return self.set_system_led("SYS_LED", color)
+    #         return status
+    #     else:
+    #         return self.set_system_led("SYS_LED", color)

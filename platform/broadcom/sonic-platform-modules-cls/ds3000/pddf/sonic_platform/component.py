@@ -8,14 +8,14 @@ except ImportError as e:
 
 BMC_EXIST =APIHelper().is_bmc_present()
 FPGA_VERSION_PATH = "/sys/bus/platform/devices/fpga_sysfs/version"
-Bios_Version_Cmd = "dmidecode -t bios | grep Version"
+# Bios_Version_Cmd = "dmidecode -t bios | grep Version"
 
 BIOS_VERSION_CMD = "dmidecode -s bios-version"
-ONIE_VERSION_CMD = "cat /host/machine.conf"
-SWCPLD1_VERSION_CMD = "i2cget -y -f 102 0x30 0x0 | tr a-z A-Z | cut -d 'X' -f 2"
-SWCPLD2_VERSION_CMD = "i2cget -y -f 102 0x31 0x0 | tr a-z A-Z | cut -d 'X' -f 2"
-BASECPLD_VERSION_CMD = "cat /sys/devices/platform/baseboard/version | tr a-z A-Z | cut -d 'X' -f 2"
-COME_CPLD_VERSION_CMD = "cat /sys/devices/platform/baseboard/come_cpld_version | tr a-z A-Z | cut -d 'X' -f 2"
+# ONIE_VERSION_CMD = "cat /host/machine.conf"
+# SWCPLD1_VERSION_CMD = "i2cget -y -f 102 0x30 0x0 | tr a-z A-Z | cut -d 'X' -f 2"
+# SWCPLD2_VERSION_CMD = "i2cget -y -f 102 0x31 0x0 | tr a-z A-Z | cut -d 'X' -f 2"
+# BASECPLD_VERSION_CMD = "cat /sys/devices/platform/baseboard/version | tr a-z A-Z | cut -d 'X' -f 2"
+# COME_CPLD_VERSION_CMD = "cat /sys/devices/platform/baseboard/come_cpld_version | tr a-z A-Z | cut -d 'X' -f 2"
 SSD_VERSION_CMD = "smartctl -i /dev/sda"
 ASIC_PCIE_VERSION_CMD = "bcmcmd 'pciephy fw version' | grep 'PCIe FW version' | cut -d ' ' -f 4"
 
@@ -226,79 +226,108 @@ class Component(ComponentBase):
             cpld_version_dict[cpld_name] = version
         return cpld_version_dict
 
-    def __get_asic_pcie_ver(self):
-        status, raw_ver=self.helper.run_command(ASIC_PCIE_VERSION_CMD)
-        if status:
-           return raw_ver
-        else:
-           return UNKNOWN_VER
+    def __get_asic_pcie_ver(self): 
+        cmd = ["/usr/bin/bcmcmd", "pciephy fw version"]
+        status, output = self.helper.run_command(cmd)
+        if not status:
+            return UNKNOWN_VER
 
-    def __get_bios_ver(self):
+        for line in output.splitlines():
+            if "PCIe FW version" in line: 
+                try:
+                    return line.split()[3] 
+                except IndexError:
+                    return UNKNOWN_VER 
+
+        return UNKNOWN_VER 
+
+    def __get_bios_ver(self): 
         status, raw_ver=self.helper.run_command(BIOS_VERSION_CMD)
         if status:
            return raw_ver
         else:
            return UNKNOWN_VER
 
-    def __get_basecpld_ver(self):
-        status, raw_ver=self.helper.run_command(BASECPLD_VERSION_CMD)
-        if status:
-           return raw_ver
+    def __get_basecpld_ver(self): 
+        with open("/sys/devices/platform/baseboard/version", "r") as f:
+            raw_ver = f.read().strip().upper()
+        if 'X' in raw_ver:
+            version = raw_ver.split('X')[1]
+            return version
         else:
-           return UNKNOWN_VER
+            return UNKNOWN_VER
 
-    def __get_comecpld_ver(self):
-        status, raw_ver=self.helper.run_command(COME_CPLD_VERSION_CMD)
-        if status:
-           return raw_ver
+    def __get_comecpld_ver(self): 
+        with open("/sys/devices/platform/baseboard/come_cpld_version", "r") as f:
+            raw_ver = f.read().strip().upper()
+        if 'X' in raw_ver:
+            version = raw_ver.split('X')[1]
+            return version
         else:
-           return UNKNOWN_VER
+            return UNKNOWN_VER
     
-    def __get_swcpld1_ver(self):
+    def __get_swcpld1_ver(self): 
+        SWCPLD1_VERSION_CMD = "i2cget -y -f 102 0x30 0x0"
         status, raw_ver=self.helper.run_command(SWCPLD1_VERSION_CMD)
-        if status:
-           return raw_ver
+        if not status:
+            return UNKNOWN_VER
+        raw_ver = raw_ver.strip().upper()
+        if 'X' in raw_ver:
+            version = raw_ver.split('X')[1]
+            return version
         else:
-           return UNKNOWN_VER
+            return UNKNOWN_VER
 
-    def __get_swcpld2_ver(self):
+    def __get_swcpld2_ver(self): 
+        SWCPLD2_VERSION_CMD = "i2cget -y -f 102 0x31 0x0"
         status, raw_ver=self.helper.run_command(SWCPLD2_VERSION_CMD)
-        if status:
-            return raw_ver
+        if not status:
+            return UNKNOWN_VER
+        raw_ver = raw_ver.strip().upper()
+        if 'X' in raw_ver:
+            version = raw_ver.split('X')[1]
+            return version
         else:
-           return UNKNOWN_VER
+            return UNKNOWN_VER
 
     def __get_bmc_presence(self):
         if BMC_EXIST:
            return True
+           
         else:
            return False
 
-    def __get_bmc_ver(self):
-        cmd="ipmitool mc info | grep 'Firmware Revision'"
-        status, raw_ver=self.helper.run_command(cmd)
+    def __get_bmc_ver(self): 
+        cmd = "ipmitool mc info"
+        status, raw_ver = self.helper.run_command(cmd)
         if status:
-           bmc_ver=raw_ver.split(':')[-1].strip()
-           return {"BMC":bmc_ver}
-        else:
-           return {"BMC":"N/A"}
+            for line in raw_ver.splitlines():
+                if "Firmware Revision" in line:
+                    bmc_ver = line.split(':')[-1].strip()
+                    return {"BMC": bmc_ver}
+        return {"BMC": "N/A"} 
 
-    def __get_fpga_version(self):
-        status, fpga_version = self.helper.run_command("cat %s" % FPGA_VERSION_PATH)
-        if not status:
+    def __get_fpga_version(self): 
+        try:
+            with open(FPGA_VERSION_PATH, "r") as f:
+                fpga_version = f.read().strip()
+            return fpga_version.replace("0x", "")
+        except Exception as e:
             return UNKNOWN_VER
-        return fpga_version.replace("0x", "")
 
-    def __get_onie_ver(self):
+    def __get_onie_ver(self): 
         onie_ver = "N/A"
-        status, raw_onie_data = self.helper.run_command(ONIE_VERSION_CMD)
-        if status:
-           ret = re.search(r"(?<=onie_version=).+[^\n]", raw_onie_data)
-           if ret != None:
-              onie_ver = ret.group(0)
+        try:
+            with open("/host/machine.conf", "r") as f:
+                raw_onie_data = f.read()
+            ret = re.search(r"(?<=onie_version=).+[^\n]", raw_onie_data)
+            if ret is not None:
+                onie_ver = ret.group(0)
+        except Exception as e:
+            print(f"Error reading ONIE version: {e}")
         return onie_ver
 
-    def __get_ssd_ver(self):
+    def __get_ssd_ver(self): 
         ssd_ver = "N/A"
         status, raw_ssd_data = self.helper.run_command(SSD_VERSION_CMD)
         if status:
@@ -307,7 +336,7 @@ class Component(ComponentBase):
               ssd_ver = ret.group(1)
         return ssd_ver
 
-    def __get_ssd_model(self):
+    def __get_ssd_model(self): 
         model = "N/A"
 
         status, raw_ssd_data = self.helper.run_command(SSD_VERSION_CMD)

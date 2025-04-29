@@ -1,5 +1,6 @@
 import fcntl
 import os
+import shlex
 import struct
 import subprocess
 from mmap import *
@@ -20,11 +21,33 @@ class APIHelper():
             status = False
         return status, result
 
-    def get_cmd_output(self, cmd):
+    @staticmethod
+    def ipmi_raw(cmd):
+        status = True
+        result = ""
         try:
-            data = subprocess.check_output(cmd, shell=True,
-                    universal_newlines=True, stderr=subprocess.STDOUT).strip()
-            status = 0
+            cmd = "ipmitool raw {}".format(str(cmd))
+            raw_data = subprocess.check_output(shlex.split(cmd), universal_newlines=True, stderr=subprocess.STDOUT)
+            result = raw_data.strip()
+
+        except subprocess.CalledProcessError as ex:
+            status = False
+            result = ex.output.strip()
+        except Exception as e:
+            status = False
+            result = str(e)
+        return status, result
+
+
+    def get_cmd_output(self, cmd):
+
+        try:
+            if isinstance(cmd, list):
+                data = subprocess.check_output(cmd, universal_newlines=True, stderr=subprocess.STDOUT)
+                status = 0
+            else:
+                data = subprocess.check_output(shlex.split(cmd), universal_newlines=True, stderr=subprocess.STDOUT)
+                status = 0
         except subprocess.CalledProcessError as ex:
             data = ex.output
             status = ex.returncode
@@ -129,15 +152,16 @@ class APIHelper():
             print("Failed to get BMC card presence status")
         return True if presence == "present" else False
 
-    def run_command(self,cmd):
+    def run_command(self,cmd): 
         status = True
         result = ""
         try:
-            p = subprocess.Popen(
-                cmd, shell=True, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            raw_data, err = p.communicate()
-            if err == '':
-                result = raw_data.strip()
+            if isinstance(cmd, list):
+                raw_data = subprocess.check_output(cmd, universal_newlines=True, stderr=subprocess.STDOUT)
+            else:
+                raw_data = subprocess.check_output(shlex.split(cmd), universal_newlines=True, stderr=subprocess.STDOUT)
+            result = raw_data.strip()
+
         except:
             status = False
         return status, result

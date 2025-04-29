@@ -50,6 +50,7 @@
 #include <linux/fs.h>
 #include <linux/uaccess.h>
 #include <linux/jiffies.h>
+#include <linux/string.h>
 
 static int  majorNumber;
 
@@ -456,7 +457,7 @@ static ssize_t set_fpga_reg_value(struct device *dev,
     char *pclone = clone;
     ssize_t status;
 
-    strcpy(clone, buf);
+    strscpy(clone, buf, sizeof(clone));
 
     mutex_lock(&fpga_data->fpga_lock);
     tok = strsep((char**)&pclone, " ");
@@ -618,7 +619,8 @@ static ssize_t cpld1_setreg_store(struct device *dev,
     ssize_t status;
     int err;
 
-    strcpy(clone, buf);
+    // strcpy(clone, buf);
+    strscpy(clone, buf, sizeof(clone));
 
     tok = strsep((char**)&pclone, " ");
     if (tok == NULL) {
@@ -742,7 +744,7 @@ static ssize_t cpld2_setreg_store(struct device *dev,
     ssize_t status;
     int err;
 
-    strcpy(clone, buf);
+    strscpy(clone, buf, sizeof(clone));
 
     tok = strsep((char**)&pclone, " ");
     if (tok == NULL) {
@@ -1878,7 +1880,7 @@ static struct i2c_adapter * ds3000_i2c_init(struct platform_device *pdev,
     new_data->pca9548.master_bus = fpga_i2c_bus_dev[portid].master_bus;
     new_data->pca9548.switch_addr = fpga_i2c_bus_dev[portid].switch_addr;
     new_data->pca9548.channel = fpga_i2c_bus_dev[portid].channel;
-    strcpy(new_data->pca9548.calling_name, fpga_i2c_bus_dev[portid].calling_name);
+    strscpy(new_data->pca9548.calling_name, fpga_i2c_bus_dev[portid].calling_name, sizeof(new_data->pca9548.calling_name));
 
     snprintf(new_adapter->name, sizeof(new_adapter->name),
              "SMBus I2C Adapter PortID: %s", new_data->pca9548.calling_name);

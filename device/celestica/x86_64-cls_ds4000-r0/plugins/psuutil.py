@@ -1,10 +1,12 @@
 import os.path
+import shlex
 import subprocess
 import sys
 import re
 
 try:
     from sonic_psu.psu_base import PsuBase
+    from sonic_py_common.general import getstatusoutput_noshell_pipe
 except ImportError as e:
     raise ImportError(str(e) + "- required module not found")
 
@@ -17,13 +19,18 @@ class PsuUtil(PsuBase):
         PsuBase.__init__(self)
 
     def run_command(self, command):
-        proc = subprocess.Popen(command, shell=True, universal_newlines=True, stdout=subprocess.PIPE)
-        (out, err) = proc.communicate()
+        status = True
+        result = ""
+        try:
+            if isinstance(command, list):
+                raw_data = subprocess.check_output(command, universal_newlines=True, stderr=subprocess.STDOUT)
+            else:
+                raw_data = subprocess.check_output(shlex.split(command), universal_newlines=True, stderr=subprocess.STDOUT)
+            result = raw_data.strip()
 
-        if proc.returncode != 0:
-            sys.exit(proc.returncode)
-
-        return out
+        except:
+            status = False
+        return result
 
     def find_value(self, grep_string):
         result = re.search(".+\| (0x\d{2})\d{2}\|.+", grep_string)
@@ -39,7 +46,7 @@ class PsuUtil(PsuBase):
         """
         return 2
 
-    def get_psu_status(self, index):
+    def get_psu_status(self, index): 
         """
         Retrieves the oprational status of power supply unit (PSU) defined
                 by 1-based index <index>
@@ -50,7 +57,11 @@ class PsuUtil(PsuBase):
             return False
 
         grep_key = "PSUL_Status" if index == 1 else "PSUR_Status"
-        grep_string = self.run_command(self.ipmi_sensor + ' | grep ' + grep_key)
+        grep_string = self.run_command(self.ipmi_sensor)
+        for line in grep_string.splitlines():
+            if grep_key in line:
+                grep_string = line
+                break
         status_byte = self.find_value(grep_string)
 
         if status_byte is None:
@@ -63,7 +74,7 @@ class PsuUtil(PsuBase):
         else:
             return True
 
-    def get_psu_presence(self, index):
+    def get_psu_presence(self, index): 
         """
         Retrieves the presence status of power supply unit (PSU) defined
                 by 1-based index <index>
@@ -74,7 +85,11 @@ class PsuUtil(PsuBase):
             return False
 
         grep_key = "PSUL_Status" if index == 1 else "PSUR_Status"
-        grep_string = self.run_command(self.ipmi_sensor + ' | grep ' + grep_key)
+        grep_string = self.run_command(self.ipmi_sensor)
+        for line in grep_string.splitlines():
+            if grep_key in line:
+                grep_string = line
+                break
         status_byte = self.find_value(grep_string)
 
         if status_byte is None:

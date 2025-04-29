@@ -12,15 +12,14 @@ try:
     import os
     import re
     import shutil
+    import shlex
     from . import helper
 except ImportError as e:
     raise ImportError(str(e) + "- required module not found")
 
 GETREG_PATH="/sys/devices/platform/sys_cpld/getreg"
 SETREG_PATH="/sys/devices/platform/sys_cpld/setreg"
-SET_SYS_STATUS_LED="echo {} {} > {}"
 SET_SYS_STATUS_LED_IPMI="0x3A 0x39 0x02 0x00 {}"
-GET_REBOOT_CAUSE="echo '0xA107' > {} && cat {}".format(GETREG_PATH, GETREG_PATH)
 
 ORG_HW_REBOOT_CAUSE_FILE="/host/reboot-cause/hw-reboot-cause.txt"
 TMP_HW_REBOOT_CAUSE_FILE="/tmp/hw-reboot-cause.txt"
@@ -51,13 +50,20 @@ class Chassis(PddfChassis):
     
     def _getstatusoutput(self, cmd):
         try:
-            data = subprocess.check_output(cmd, shell=True,
-                    universal_newlines=True, stderr=subprocess.STDOUT)
-            status = 0
+            if isinstance(cmd, list):
+                data = subprocess.check_output(cmd, universal_newlines=True, stderr=subprocess.STDOUT)
+                status = 0
+            else:
+                data = subprocess.check_output(shlex.split(cmd), universal_newlines=True, stderr=subprocess.STDOUT)
+                status = 0
         except subprocess.CalledProcessError as ex:
             data = ex.output
             status = ex.returncode
-        if data[-1:] == '\n':
+        except Exception as e:
+            data = str(e)
+            status = -1
+
+        if data and data[-1] == '\n':
             data = data[:-1]
         return status, data
 
@@ -97,13 +103,9 @@ class Chassis(PddfChassis):
             elif color == "amber":
                 color_val="0xe0"
 
-            cmd=SET_SYS_STATUS_LED.format("0xA162", color_val, SETREG_PATH)
-            status, res = self._getstatusoutput(cmd)
-
-            if status != 0:
-                return False
-            else:
-                return True
+            with open(SETREG_PATH, 'w') as f:
+                f.write(f"0xA162 {color_val}")
+            return True
 
     def get_sfp(self, index):
         """    
@@ -142,10 +144,11 @@ class Chassis(PddfChassis):
             to pass a description of the reboot cause.
         """
         # Newer baseboard CPLD to get reboot cause from CPLD register
-        hw_reboot_cause = ""
-        status, hw_reboot_cause = self._getstatusoutput(GET_REBOOT_CAUSE)
-        if status != 0:
-            pass
+        with open(GETREG_PATH, 'w+') as f:
+            f.write('0xA107')
+            f.flush()
+            f.seek(0)
+            hw_reboot_cause = f.read().strip()
 
         # This tmp copy is to retain the reboot-cause only for the current boot
         if os.path.isfile(ORG_HW_REBOOT_CAUSE_FILE):

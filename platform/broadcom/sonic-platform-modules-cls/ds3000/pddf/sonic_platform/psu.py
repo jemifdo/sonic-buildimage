@@ -29,21 +29,30 @@ class Psu(PddfPsu):
         Returns:
             string: revision of device
         """
-        if not self.get_presence():
-            return 'N/A'
+        try:
 
-        if self._api_helper.is_bmc_present():
-            cmd = "ipmitool fru list {} | grep 'Product Version'".format(5 - self.psu_index)
-            status, output = self._api_helper.get_cmd_output(cmd)
-            if status == 0:
-                rev = output.split()[-1]
-                return rev
-        else:
-            # Get the revision information from FRU
-            cmd = "i2cget -y -f {} {} 0x2d w".format(42 + self.psu_index - 1, hex(0x52 + self.psu_index - 1))
-            status, output = self._api_helper.get_cmd_output(cmd)
-            if status == 0:
-                rev = bytes.fromhex(output.strip('0x')).decode('utf-8')
-                # swap to change the endian difference
-                return rev[::-1]
-        return 'N/A'
+            if not self.get_presence():
+                return 'N/A'
+
+            if self._api_helper.is_bmc_present():
+                cmd = "ipmitool fru list {}".format(5 - self.psu_index)
+                # replace pipe commands everywhere, get o/p of 1st cmd and parse to find Product version
+                status, output = self._api_helper.get_cmd_output(cmd)
+                if status == 0:
+                    cmd = "ipmitool fru list {}".format(5 - self.psu_index)
+                    status, output = self._api_helper.get_cmd_output(cmd)
+                    if status == 0:
+                        rev = output.split()[-1]
+                        return rev
+            else:
+                # Get the revision information from FRU
+                cmd = "i2cget -y -f {} {} 0x2d w".format(42 + self.psu_index - 1, hex(0x52 + self.psu_index - 1))
+                status, output = self._api_helper.get_cmd_output(cmd)
+                if status == 0:
+                    rev = bytes.fromhex(output.strip('0x')).decode('utf-8')
+                    # swap to change the endian difference
+                    return rev[::-1]
+            return 'N/A'
+        except Exception as e:
+            self._api_helper.log_error("Failed to get PSU revision: {}".format(e))
+            return 'N/A'

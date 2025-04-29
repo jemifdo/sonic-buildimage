@@ -11,18 +11,10 @@ except ImportError as e:
     raise ImportError(str(e) + "- required module not found")
 BMC_EXIST = helper.APIHelper().get_bmc_status()
 FPGA_VERSION_PATH = "/sys/bus/platform/devices/fpga_sysfs/version"
-Bios_Version_Cmd = "dmidecode -t bios | grep Version"
-ONIE_Version_Cmd = "cat /host/machine.conf"
 SSD_Version_Cmd = "smartctl -i /dev/sda"
-ASIC_PCIE_VERSION_CMD = "bcmcmd 'pciephy fw version' | grep 'PCIe FW version' | cut -d ' ' -f 4"
 
 if BMC_EXIST:
-    Check_Bios_Boot = "ipmitool raw 0x3a 0x25 0x02"
-    Fan_CPLD_Cmd = "ipmitool raw 0x3a 0x64 02 01 00"
-    COME_CPLD_Cmd = "ipmitool raw 0x3a 0x3e 1 0x1a 1 0xe0"
-    Sys_Cpld_Cmd = "ipmitool raw 0x3a 0x64 0x00 0x01 0x00"
-    Sw_Cpld1_Cmd = "i2cget -y -f 108 0x30 0 | tr a-z A-Z | cut -d 'X' -f 2"
-    Sw_Cpld2_Cmd = "i2cget -y -f 108 0x31 0 | tr a-z A-Z | cut -d 'X' -f 2"
+    
     Main_BMC_Cmd = "0x32 0x8f 0x08 0x01"
     Backup_BMC_Cmd = "0x32 0x8f 0x08 0x01"
 
@@ -40,12 +32,6 @@ if BMC_EXIST:
                           "ASIC PCIe Firmware",
                           "Solid State Drive"]
 else:
-    Check_Bios_Boot = "i2cget -y -f 100 0x0d 0x70 | tr a-z A-Z | cut -d 'X' -f 2"
-    Fan_CPLD_Cmd = "i2cget -y -f 107 0x0d 0x00 | tr a-z A-Z | cut -d 'X' -f 2"
-    COME_CPLD_Cmd = "i2cget -y -f 104 0x0d 0xe0 | tr a-z A-Z | cut -d 'X' -f 2"
-    Sys_Cpld_Cmd = "i2cget -y -f 100 0x0d 0x00 | tr a-z A-Z | cut -d 'X' -f 2"
-    Sw_Cpld1_Cmd = "i2cget -y -f 108 0x30 0x00 | tr a-z A-Z | cut -d 'X' -f 2"
-    Sw_Cpld2_Cmd = "i2cget -y -f 108 0x31 0x00 | tr a-z A-Z | cut -d 'X' -f 2"
 
     COMPONENT_NAME_LIST = ["BIOS", "ONIE", "BMC", "FPGA", "CPLD COMe", "CPLD BASE",
                            "CPLD SW1", "CPLD SW2", "CPLD FAN", "SSD"]
@@ -74,18 +60,36 @@ class Component(ComponentBase):
         self.helper = helper.APIHelper()
         self.name = self.get_name()
 
-    def __get_bios_version(self):
+    def __get_bios_version(self): 
         """
         Get Bios version by command 'dmidecode -t bios | grep Version'
         return: Bios Version
         """
-        status, result = self.helper.run_command(Check_Bios_Boot)
-        bios_version = "N/A"
+        if BMC_EXIST:
+            Check_Bios_Boot = "ipmitool raw 0x3a 0x25 0x02"
+            status, result = self.helper.run_command(Check_Bios_Boot)
+        else:
+            Check_Bios_Boot = "i2cget -y -f 100 0x0d 0x70"
+            status, result = self.helper.run_command(Check_Bios_Boot)
+            if status:
+                raw_ver = result.strip().upper()
+                if 'X' in raw_ver:
+                    result = raw_ver.split('X')[1]
+                else:
+                    return "N/A"
+            
         if not status:
             print("Fail! Unable to get the current Main bios or backup bios!")
             return bios_version
+        Bios_Version_Cmd = "dmidecode -t bios"
+        bios_version = "N/A"
+        
         status_ver, version_str = self.helper.run_command(Bios_Version_Cmd)
-        if not status:
+        for line in version_str.splitlines():
+            if "Version:" in line:
+                result_str = line.split("Version:")[1].strip()
+                break
+        if not status_ver:
             print("Fail! Unable to get the bios version!")
             return bios_version
 
@@ -98,49 +102,153 @@ class Component(ComponentBase):
         else:
             return "N/A"
 
-    def __get_onie_version(self):
+    def __get_onie_version(self): 
         """
         Get ONIE Version"
         """
         onie_version = "N/A"
-        status, raw_onie_data = self.helper.run_command(ONIE_Version_Cmd)
-        if status:
+        try:
+            with open("/host/machine.conf", "r") as f:
+                raw_onie_data = f.read()
             ret = re.search(r"(?<=onie_version=).+[^\n]", raw_onie_data)
-            if ret != None:
-                onie_version = ret.group(0)
-        return onie_version
+            if ret is not None:
+                onie_ver = ret.group(0)
+        except Exception as e:
+            print(f"Error reading ONIE version: {e}")
+        return onie_ver
 
-    def __get_cpld_version(self):
+
+    def __get_cpld_version(self): 
         """
         Get Come cpld/Fan cpld/Sys cpld/Switch 1 cpld/Switch 2 cpld version
         """
         version = "N/A"
         cpld_version_dict = {
-            "CPLD COMe": COME_CPLD_Cmd,
-            "CPLD FAN": Fan_CPLD_Cmd,
-            "CPLD SW1": Sw_Cpld1_Cmd,
-            "CPLD SW2": Sw_Cpld2_Cmd,
-            "CPLD BASE": Sys_Cpld_Cmd,
+            "CPLD COMe": self.__get_comecpld_version(),
+            "CPLD FAN": self.__getfancpld_version(),
+            "CPLD SW1": self.__get_swcpld1_ver(),
+            "CPLD SW2": self.__get_swcpld2_ver(),
+            "CPLD BASE": self.__get_basecpld_ver(),
         }
-        if self.name in cpld_version_dict.keys():
-            version_cmd = cpld_version_dict[self.name]
-            status, ver = self.helper.run_command(version_cmd)
-            if not status:
-                print("Fail! Can't get %s version by command:%s" % (self.name, version_cmd))
-                return version
-            version1 = int(ver.strip()) / 10
-            version2 = int(ver.strip()) % 10
-            version = "%d.%d" % (version1, version2)
+        for cpld_name, cpld_ver in cpld_version_dict.items():
+            if cpld_ver == "N/A":
+                continue 
+            ver1 = int(cpld_ver.strip()) / 10
+            ver2 = int(cpld_ver.strip()) % 10
+            version = "%d.%d" % (ver1,ver2)
             return version
 
-    def __get_fpga_version(self):
+    def __get_comecpld_version(self): 
+        if BMC_EXIST:
+            COME_CPLD_Cmd = "ipmitool raw 0x3a 0x3e 1 0x1a 1 0xe0"
+            status, output = self.helper.run_command(COME_CPLD_Cmd)
+            if not status:
+                print("Fail! Can't get %s version by command:%s" % (self.name, COME_CPLD_Cmd))
+                return "N/A"
+            return output.strip()
+
+        else:
+            COME_CPLD_Cmd = "i2cget -y -f 104 0x0d 0xe0"
+            status, output = self.helper.run_command(COME_CPLD_Cmd)
+            if status:
+                raw_ver = output.strip().upper()
+                if 'X' in raw_ver:
+                    version = raw_ver.split('X')[1]
+                    return version
+                else:
+                    return "N/A"
+            else:   
+                print("Fail! Can't get %s version by command:%s" % (self.name, COME_CPLD_Cmd))
+                return "N/A"
+         
+    def __getfancpld_version(self): 
+        if BMC_EXIST:
+            Fan_CPLD_Cmd = "ipmitool raw 0x3a 0x64 02 01 00"
+            status, output = self.helper.run_command(Fan_CPLD_Cmd)
+            if not status:
+                print("Fail! Can't get %s version by command:%s" % (self.name, Fan_CPLD_Cmd))
+                return "N/A"
+            return output.strip()
+        else:
+            Fan_CPLD_Cmd = "i2cget -y -f 107 0x0d 0x00"
+            status, output = self.helper.run_command(Fan_CPLD_Cmd)
+            if status:
+                raw_ver = output.strip().upper()
+                if 'X' in raw_ver:
+                    version = raw_ver.split('X')[1]
+                    return version
+                else:
+                    return "N/A"
+            else:   
+                print("Fail! Can't get %s version by command:%s" % (self.name, Fan_CPLD_Cmd))
+                return "N/A"
+
+    def __get_swcpld1_ver(self): 
+        if BMC_EXIST:
+            Sw_Cpld1_Cmd = "i2cget -y -f 108 0x30 0"
+        else:
+            Sw_Cpld1_Cmd = "i2cget -y -f 108 0x30 0x00"
+        status, output = self.helper.run_command(Sw_Cpld1_Cmd)
+        if status:
+            raw_ver = output.strip().upper()
+            if 'X' in raw_ver:
+                version = raw_ver.split('X')[1]
+                return version
+            else:
+                return "N/A"
+        else:   
+            print("Fail! Can't get %s version by command:%s" % (self.name, Sw_Cpld1_Cmd))
+            return "N/A"
+        
+    def __get_swcpld2_ver(self): 
+        if BMC_EXIST:
+            Sw_Cpld2_Cmd = "i2cget -y -f 108 0x31 0"
+        else:
+            Sw_Cpld2_Cmd = "i2cget -y -f 108 0x31 0x00"
+        status, output = self.helper.run_command(Sw_Cpld2_Cmd)
+        if status:
+            raw_ver = output.strip().upper()
+            if 'X' in raw_ver:
+                version = raw_ver.split('X')[1]
+                return version
+            else:
+                return "N/A"
+        else:   
+            print("Fail! Can't get %s version by command:%s" % (self.name, Sw_Cpld2_Cmd))
+            return "N/A"
+
+    def __get_basecpld_ver(self): 
+        if BMC_EXIST:
+            Sys_Cpld_Cmd = "ipmitool raw 0x3a 0x64 0x00 0x01 0x00"
+            status, output = self.helper.run_command(Sys_Cpld_Cmd)
+            if not status:
+                print("Fail! Can't get %s version by command:%s" % (self.name, Sys_Cpld_Cmd))
+                return "N/A"
+        else:
+            Sys_Cpld_Cmd = "i2cget -y -f 100 0x0d 0x00"
+            status, output = self.helper.run_command(Sys_Cpld_Cmd)
+            if status:
+                raw_ver = output.strip().upper()
+                if 'X' in raw_ver:
+                    version = raw_ver.split('X')[1]
+                    return version
+                else:
+                    return "N/A"
+            else:   
+                print("Fail! Can't get %s version by command:%s" % (self.name, Sys_Cpld_Cmd))
+                return "N/A"
+
+    def __get_fpga_version(self): 
         """
         Get fpga version by fpga version bus path.
         """
-        status, fpga_version = self.helper.run_command("cat %s" % FPGA_VERSION_PATH)
-        if not status:
+
+        try:
+            with open(FPGA_VERSION_PATH, "r") as f:
+                fpga_version = f.read().strip()
+            return fpga_version.replace("0x", "")
+        except Exception as e:
             return "N/A"
-        return fpga_version.replace("0x", "")
 
     def __get_bmc_version(self):
         """
@@ -157,14 +265,23 @@ class Component(ComponentBase):
         version = "%s.%s" % (str_1, str_2)
         return version
 
-    def __get_asic_pcie_ver(self):
-        status, raw_ver=self.helper.run_command(ASIC_PCIE_VERSION_CMD)
-        if status:
-            return raw_ver
-        else:
+    def __get_asic_pcie_ver(self): 
+        cmd = ["/usr/bin/bcmcmd", "pciephy fw version"]
+        status, output = self.helper.run_command(cmd)
+        if not status:
             return "N/A"
 
-    def __get_ssd_version(self):
+        for line in output.splitlines():
+            if "PCIe FW version" in line: 
+                try:
+                    return line.split()[3] 
+                except IndexError:
+                    return "N/A" 
+
+        return "N/A" 
+
+
+    def __get_ssd_version(self): 
         ssd_version = "N/A"
         status, raw_ssd_data = self.helper.run_command(SSD_Version_Cmd)
         if status:

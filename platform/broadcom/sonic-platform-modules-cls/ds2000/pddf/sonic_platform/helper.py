@@ -1,11 +1,12 @@
 import fcntl
 import os
+import shlex
 import struct
 import subprocess
 from mmap import *
 
 GETREG_PATH="/sys/devices/platform/sys_cpld/getreg"
-BMC_PRESENCE="echo '0xA108' > {} && cat {}".format(GETREG_PATH, GETREG_PATH)
+# BMC_PRESENCE="echo '0xA108' > {} && cat {}".format(GETREG_PATH, GETREG_PATH)
 
 class APIHelper():
     def pci_get_value(self, resource, offset):
@@ -23,9 +24,12 @@ class APIHelper():
 
     def get_cmd_output(self, cmd):
         try:
-            data = subprocess.check_output(cmd, shell=True,
-                    universal_newlines=True, stderr=subprocess.STDOUT).strip()
-            status = 0
+            if isinstance(cmd, list):
+                data = subprocess.check_output(cmd, universal_newlines=True, stderr=subprocess.STDOUT)
+                status = 0
+            else:
+                data = subprocess.check_output(shlex.split(cmd), universal_newlines=True, stderr=subprocess.STDOUT)
+                status = 0
         except subprocess.CalledProcessError as ex:
             data = ex.output
             status = ex.returncode
@@ -124,14 +128,15 @@ class APIHelper():
         result = ""
         try:
             cmd = "ipmitool raw {}".format(str(cmd))
-            p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            raw_data, err = p.communicate()
-            if err.decode("utf-8") == "":
-                result = raw_data.decode("utf-8").strip()
-            else:
-                status = False
-        except Exception:
+            raw_data = subprocess.check_output(shlex.split(cmd), universal_newlines=True, stderr=subprocess.STDOUT)
+            result = raw_data.strip()
+
+        except subprocess.CalledProcessError as ex:
             status = False
+            result = ex.output.strip()
+        except Exception as e:
+            status = False
+            result = str(e)
         return status, result
 
     def is_bmc_present(self):
@@ -141,8 +146,17 @@ class APIHelper():
         Returns:
             A boolean, True if present, False if absent
         """
-        status, presence = self.get_cmd_output(BMC_PRESENCE)
-        if status == 0 and presence == "0x00":
-            return True
-        else:
+
+        try:
+            with open(GETREG_PATH, 'w+') as f:
+                f.write('0xA108')
+                f.flush()
+                f.seek(0)
+                presence = f.read().strip()
+            
+            if presence == "0x00":
+                return True
+            else:
+                return False
+        except Exception as e:
             return False

@@ -27,7 +27,6 @@ SW_MAJOR_ALARM = 105
 SW_SHUTDOWN = 120
 SW_CRITICAL = 110
 TEMP_DIFF = 15  # abs(Tk - Tk-1) limit
-SWITCH_INTERNAL_PEAK_TEMP = "bcmcmd 'show temp' | grep maximum | cut -d ' ' -f 5"
 
 # PID Defaults Value
 PWM_LIST = [35]  # [PWMk-1]
@@ -78,9 +77,15 @@ class SwitchInternalPIDRegulation(object):
         """
         Get Switch internal temperature
         """
+        cmd = ["/usr/bin/bcmcmd", "show temp"]
+        # SWITCH_INTERNAL_PEAK_TEMP = "bcmcmd 'show temp' | grep maximum | cut -d ' ' -f 5"
+
         try:
-            value = subprocess.check_output(SWITCH_INTERNAL_PEAK_TEMP, shell=True,universal_newlines=True, stderr=subprocess.STDOUT)[:-1]
-            return int(float(value))
+            output = subprocess.check_output(cmd, universal_newlines=True, stderr=subprocess.STDOUT)
+            for line in output.splitlines():
+                if "maximum" in line:
+                    value = line.split()[4]
+                    return int(float(value))
         except Exception as E:
             self.syslog.warning("Can't Get switch internal temperature! Cause:%s" % str(E))
             logging.warning("Can't Get switch internal temperature! Cause:%s" % str(E))

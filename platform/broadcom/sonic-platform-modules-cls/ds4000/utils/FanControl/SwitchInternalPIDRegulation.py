@@ -61,10 +61,18 @@ class SwitchInternalPIDRegulation(object):
         Get Switch internal temperature
         """
         try:
-            os.popen("echo 0x78 > %s" % SWITCH_INTERNAL_PATH)
-            value_1 = os.popen("cat %s" % SWITCH_INTERNAL_PATH).read().strip()
-            os.popen("echo 0x80 > %s" % SWITCH_INTERNAL_PATH)
-            value_2 = os.popen("cat %s" % SWITCH_INTERNAL_PATH).read().strip()
+            with open(SWITCH_INTERNAL_PATH, 'w+') as f:
+                f.write("0x78")
+                f.flush()
+                f.seek(0)
+                value_1 = f.read().strip()
+
+                f.seek(0)
+                f.write("0x80")
+                f.flush()
+                f.seek(0)
+                value_2 = f.read().strip()
+
             freq = int(value_2, 16)
             freq = freq * 256 + int(value_1, 16)
             temp = (434100 - ((12500000 / freq - 1) * 535)) / 1000

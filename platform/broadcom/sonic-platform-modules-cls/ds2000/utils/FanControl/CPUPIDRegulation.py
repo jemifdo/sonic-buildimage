@@ -79,7 +79,8 @@ class CPUPIDRegulation(object):
         Get CPU temperature
         """
         try:
-            temp = int(os.popen(CPU_TEMPERATURE).read().strip()) / 1000
+            with open("/sys/class/thermal/thermal_zone1/temp", "r") as f:
+                temp = int(f.read().strip()) / 1000
             return temp
         except Exception as E:
             self.syslog.warning("Can't Get CPU temperature! Cause:%s" % str(E))
