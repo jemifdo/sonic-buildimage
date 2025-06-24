@@ -92,7 +92,7 @@ class Component():
     def __get_comecpld_ver(self): 
         try:
             with open("/sys/devices/platform/sys_cpld/come_cpld_version", "r") as f:
-                raw_ver = f.read().strip()  # Read and strip any trailing whitespace or newline
+                raw_ver = f.read().strip()
             return raw_ver
         except Exception as e:
             return UNKNOWN_VER
@@ -132,10 +132,12 @@ class Component():
                 f.flush()
                 f.seek(0)
                 raw_ver = f.read().strip()
-            
-            return raw_ver
-        except Exception as e:
-            return UNKNOWN_VER
+            if raw_ver == "0x00":
+                return True
+            else:
+                return False
+        except Exception:
+            return False
 
     def __get_bmc_ver(self): 
         cmd = "ipmitool mc info"
@@ -167,7 +169,7 @@ class Component():
             print(f"Error reading ONIE version: {e}")
         return onie_ver
 
-    def __get_ssd_ver(self): 
+    def __get_ssd_ver(self):
         ssd_ver = "N/A"
         status, raw_ssd_data = self.run_command(SSD_VERSION_CMD)
         if status:
@@ -214,21 +216,17 @@ class Component():
         Returns:
             string: The firmware versions of the module
         """
-        try:
-            fw_version_info = {
-                "ONIE": self.__get_onie_ver(),
-                "SSD": self.__get_ssd_ver(),
-                "BIOS": self.__get_bios_ver(),
-                "FPGA": self.__get_fpga_version(),
-                "ASIC PCIe": self.__get_asic_pcie_ver(),
-            }
-            fw_version_info.update(self.__get_cpld_ver())
-            if self.__get_bmc_presence():
-                fw_version_info.update(self.__get_bmc_ver())
-            return fw_version_info.get(self.name, UNKNOWN_VER)
-        except Exception as e:
-            traceback.print_exc()
-            raise e 
+        fw_version_info = {
+            "ONIE": self.__get_onie_ver(),
+            "SSD": self.__get_ssd_ver(),
+            "BIOS": self.__get_bios_ver(),
+            "FPGA": self.__get_fpga_version(),
+            "ASIC PCIe": self.__get_asic_pcie_ver(),
+        }
+        fw_version_info.update(self.__get_cpld_ver())
+        if self.__get_bmc_presence():
+            fw_version_info.update(self.__get_bmc_ver())
+        return fw_version_info.get(self.name, UNKNOWN_VER)
    
     def run_command(self, cmd): 
         status = True
