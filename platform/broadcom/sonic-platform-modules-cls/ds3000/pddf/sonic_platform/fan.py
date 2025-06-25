@@ -224,33 +224,33 @@ class Fan(PddfFan):
         else:
             return False
 
-    # def set_status_led(self,color):
-    #     if self.is_psu_fan:
-    #         return super().set_status_led(color)
+    def set_status_led(self,color):
+        if self.is_psu_fan:
+            return super().set_status_led(color)
 
-    #     if color == self.get_status_led():
-    #         return False
+        if color == self.get_status_led():
+            return False
 
-    #     if BMC_EXIST:
-    #         fan_led_color_map = {
-    #             'off': '00',
-    #             'green': '01',
-    #             'amber': '02',
-    #             'red': '02'
-    #         }
+        if BMC_EXIST:
+            fan_led_color_map = {
+                'off': '00',
+                'green': '01',
+                'amber': '02',
+                'red': '02'
+            }
 
-    #         fan_index_val = hex(self.fantray_index + 3)
+            fan_index_val = hex(self.fantray_index + 3)
 
-    #         color_val = fan_led_color_map.get(color.lower(), None)
+            color_val = fan_led_color_map.get(color.lower(), None)
 
-    #         if fan_index_val is None:
-    #             return False
+            if fan_index_val is None:
+                return False
 
-    #         if color_val is None:
-    #             return False
+            if color_val is None:
+                return False
 
-    #         status, _ = self._api_helper.ipmi_raw(SET_FAN_STATUS_LED_CMD.format(fan_index_val,color_val))
+            status, _ = self._api_helper.ipmi_raw(SET_FAN_STATUS_LED_CMD.format(fan_index_val,color_val))
 
-    #         return status
-    #     else:
-    #         return self.set_system_led("SYS_LED", color)
+            return status
+        else:
+            return self.set_system_led("SYS_LED", color)

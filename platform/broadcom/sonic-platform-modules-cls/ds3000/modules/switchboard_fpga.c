@@ -619,7 +619,6 @@ static ssize_t cpld1_setreg_store(struct device *dev,
     ssize_t status;
     int err;
 
-    // strcpy(clone, buf);
     strscpy(clone, buf, sizeof(clone));
 
     tok = strsep((char**)&pclone, " ");

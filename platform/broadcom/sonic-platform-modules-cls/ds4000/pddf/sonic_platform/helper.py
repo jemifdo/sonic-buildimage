@@ -20,9 +20,9 @@ class APIHelper(object):
     def __init__(self):
         (self.platform, self.hwsku) = device_info.get_platform_and_hwsku()
 
-    # @staticmethod
-    # def is_host():
-    #     return os.system(HOST_CHK_CMD) == 0  # check !!!!
+    @staticmethod
+    def is_host():
+        return os.system(HOST_CHK_CMD) == 0
 
     @staticmethod
     def pci_get_value(resource, offset):

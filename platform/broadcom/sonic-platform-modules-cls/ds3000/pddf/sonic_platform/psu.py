@@ -36,7 +36,6 @@ class Psu(PddfPsu):
 
             if self._api_helper.is_bmc_present():
                 cmd = "ipmitool fru list {}".format(5 - self.psu_index)
-                # replace pipe commands everywhere, get o/p of 1st cmd and parse to find Product version
                 status, output = self._api_helper.get_cmd_output(cmd)
                 if status == 0:
                     cmd = "ipmitool fru list {}".format(5 - self.psu_index)
