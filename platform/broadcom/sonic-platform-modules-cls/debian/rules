@@ -1,0 +1,45 @@
+#!/usr/bin/make -f
+
+export INSTALL_MOD_DIR:=extra
+export KBUILD_EXTRA_SYMBOLS := /sonic/platform/pddf/i2c/Module.symvers.PDDF 
+
+KVERSION      ?= $(shell uname -r)
+KERNEL_SRC    :=  /lib/modules/$(KVERSION)
+MOD_SRC_DIR   := $(shell pwd)
+MOD_BUILD_DIR := $(shell pwd)/debian/build
+
+MODULE_DIRS   := \
+    ds1000 es1010 es1050 eg1050 ds2000 ds3000 ds4000 ds4101 ds4100 ds5000
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	$(foreach mod,$(MODULE_DIRS), \
+	    mkdir -p $(MOD_BUILD_DIR)/$(mod) && \
+	    cp $(MOD_SRC_DIR)/$(mod)/modules/Makefile $(MOD_BUILD_DIR)/$(mod) && \
+	    make -C $(KERNEL_SRC)/build M=$(MOD_BUILD_DIR)/$(mod) src=$(MOD_SRC_DIR)/$(mod)/modules || \
+	    { echo "*** Failed to compile modules for $(mod) at: $(MOD_SRC_DIR)/$(mod)/modules"; exit 1; }; \
+	    if [ -d $(MOD_SRC_DIR)/$(mod)/pddf ]; then \
+	        cd $(MOD_SRC_DIR)/$(mod)/pddf; \
+	    else \
+	        cd $(MOD_SRC_DIR)/$(mod); \
+	    fi; \
+	    python3 -m build --wheel --no-isolation --outdir $(MOD_SRC_DIR)/$(mod); \
+	    echo "Finished making sonic_platform whl package for $(mod)"; \
+	)
+
+override_dh_auto_install:
+	$(foreach mod,$(MODULE_DIRS), \
+	    dh_installdirs -pplatform-modules-$(mod) $(KERNEL_SRC)/$(INSTALL_MOD_DIR) && \
+		cp $(MOD_BUILD_DIR)/$(mod)/*.ko debian/platform-modules-$(mod)/$(KERNEL_SRC)/$(INSTALL_MOD_DIR); \
+	)
+
+override_dh_usrlocal:
+
+override_dh_clean:
+	dh_clean
+	$(foreach mod,$(MODULE_DIRS), \
+	    rm -rf $(MOD_BUILD_DIRS)/$(mod) && \
+	    rm -f $(MOD_SRC_DIR)/$(mod)/*.whl; \
+	)

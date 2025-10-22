@@ -1,0 +1,13 @@
+{
+    "chassis": {
+        "<hwsku-name>": {
+            "component": {
+                "BIOS": {},
+                "ONIE": {},
+                "CPLD COMe":{},
+                "CPLD SW": {},
+                "SSD": {}
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+[Unit]
+Description=Celestica application for managing Power-over-Ethernet
+ConditionPathExists=/usr/local/bin/poe_support
+After=pddf-platform-init.service
+Requires=pddf-platform-init.service
+BindsTo=pddf-platform-init.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/poe_daemon.py
+KillSignal=SIGTERM
+SuccessExitStatus=0
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=5
+
+# Resource Limitations
+LimitCORE=infinity
+
+[Install]
+WantedBy=multi-user.target

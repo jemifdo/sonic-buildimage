@@ -1,0 +1,15 @@
+es1050/systemd/pddf-platform-init.service etc/systemd/system
+es1050/service/es1050-pddf-platform-monitor.service lib/systemd/system
+es1050/scripts/pddf_pre_driver_install.sh usr/local/bin
+es1050/scripts/pddf_post_device_create.sh usr/local/bin
+es1050/scripts/sku_setup.sh usr/local/bin
+es1050/scripts/es1050_platform_shutdown.sh usr/local/bin
+es1050/utils/es1050_fanctld.py usr/local/bin
+es1050/utils/es1050_mgmt_interface.sh usr/local/bin
+es1050/sonic_platform-1.0-py3-none-any.whl usr/share/sonic/device/x86_64-cls_es1050_48c-r0/pddf
+es1050/service/cls-poe-manager.service lib/systemd/system
+poe-service/poe_daemon.py usr/local/bin
+es1050/udev/70-persistent-net.rules etc/udev/rules.d
+es1050/scripts/sensors usr/bin
+es1050/scripts/platform_sensors.py usr/local/bin
+es1050/scripts/poe_service_check.sh usr/local/bin

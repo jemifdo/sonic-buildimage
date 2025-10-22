@@ -1,0 +1,56 @@
+Source: sonic-platform-modules-cls
+Section: main
+Priority: extra
+Maintainer: Jemston Fernando <sjemstonirudayam.fernando@celestica.com>
+Build-Depends: debhelper (>= 8.0.0), bzip2
+Standards-Version: 3.9.3
+
+Package: platform-modules-ds1000
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp
+
+Package: platform-modules-es1050
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp
+
+Package: platform-modules-es1010
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp
+
+Package: platform-modules-eg1050
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp
+
+Package: platform-modules-ds2000
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp
+
+Package: platform-modules-ds3000
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp
+
+Package: platform-modules-ds4000
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp
+
+Package: platform-modules-ds4100
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp
+
+Package: platform-modules-ds4101
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp
+
+Package: platform-modules-ds5000
+Architecture: amd64
+Depends: linux-image-6.1.0-29-2-amd64-unsigned
+Description: kernel modules for platform devices such as led, sfp

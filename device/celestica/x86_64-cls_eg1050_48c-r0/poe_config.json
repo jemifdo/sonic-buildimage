@@ -1,0 +1,353 @@
+{
+    "firmware-path":"/usr/share/sonic/platform/poe_firmware.bin",
+        "max-power":90,
+        "num-psus":2,
+        "psu-total-power":{
+            "default": [
+               0,
+            1100,
+            1100,
+            2700
+            ]
+        },
+        "psu-bitpos":{
+            "psu1":0,
+            "psu2":1
+        },
+        "num-pse-devices":12,
+        "num-poe-ports":48,
+        "drv-intf":{
+            "type":"uart",
+            "id":"1"
+        },
+        "cpld-ctrl": {
+            "pse-enable": {
+                "bus-id": 1,
+                "dev-addr": 50,
+                "offset": 17,
+                "value": {
+                    "true": 1,
+                    "false": 0
+                },
+                "mask": 1
+            },
+	    "port-led": {
+		"bus-id": 1,
+		"dev-addr": 50,
+		"reg_base": 112,
+		"num_bits": 2,
+		"led_off": 1,
+		"led_on": 2,
+		"led_err": 3
+	    }
+	},
+        "default-controller-mode": "dynamic-with-priority",
+        "poe-port-map": {
+            "Ethernet0": {
+                "4pair": 1,
+                "dev-id": 0,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet1": {
+                "4pair": 1,
+                "dev-id": 0,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet2": {
+                "4pair": 1,
+                "dev-id": 0,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet3": {
+                "4pair": 1,
+                "dev-id": 0,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet4": {
+                "4pair": 1,
+                "dev-id": 1,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet5": {
+                "4pair": 1,
+                "dev-id": 1,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet6": {
+                "4pair": 1,
+                "dev-id": 3,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet7": {
+                "4pair": 1,
+                "dev-id": 1,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet8": {
+                "4pair": 1,
+                "dev-id": 3,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet9": {
+                "4pair": 1,
+                "dev-id": 1,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet10": {
+                "4pair": 1,
+                "dev-id": 3,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet11": {
+                "4pair": 1,
+                "dev-id": 3,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet12": {
+                "4pair": 1,
+                "dev-id": 4,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet13": {
+                "4pair": 1,
+                "dev-id": 4,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet14": {
+                "4pair": 1,
+                "dev-id": 2,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet15": {
+                "4pair": 1,
+                "dev-id": 2,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet16": {
+                "4pair": 1,
+                "dev-id": 2,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet17": {
+                "4pair": 1,
+                "dev-id": 2,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet18": {
+                "4pair": 1,
+                "dev-id": 4,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet19": {
+                "4pair": 1,
+                "dev-id": 4,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet20": {
+                "4pair": 1,
+                "dev-id": 5,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet21": {
+                "4pair": 1,
+                "dev-id": 5,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet22": {
+                "4pair": 1,
+                "dev-id": 5,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet23": {
+                "4pair": 1,
+                "dev-id": 5,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet24": {
+                "4pair": 1,
+                "dev-id": 7,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet25": {
+                "4pair": 1,
+                "dev-id": 6,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet26": {
+                "4pair": 1,
+                "dev-id": 6,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet27": {
+                "4pair": 1,
+                "dev-id": 7,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet28": {
+                "4pair": 1,
+                "dev-id": 6,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet29": {
+                "4pair": 1,
+                "dev-id": 6,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet30": {
+                "4pair": 1,
+                "dev-id": 8,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet31": {
+                "4pair": 1,
+                "dev-id": 7,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet32": {
+                "4pair": 1,
+                "dev-id": 9,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet33": {
+                "4pair": 1,
+                "dev-id": 8,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet34": {
+                "4pair": 1,
+                "dev-id": 9,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet35": {
+                "4pair": 1,
+                "dev-id": 7,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet36": {
+                "4pair": 1,
+                "dev-id": 10,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet37": {
+                "4pair": 1,
+                "dev-id": 8,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet38": {
+                "4pair": 1,
+                "dev-id": 9,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet39": {
+                "4pair": 1,
+                "dev-id": 10,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet40": {
+                "4pair": 1,
+                "dev-id": 8,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet41": {
+                "4pair": 1,
+                "dev-id": 9,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet42": {
+                "4pair": 1,
+                "dev-id": 10,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet43": {
+                "4pair": 1,
+                "dev-id": 10,
+                "ch0": 4,
+                "ch1": 6
+            },
+            "Ethernet44": {
+                "4pair": 1,
+                "dev-id": 11,
+                "ch0": 1,
+                "ch1": 3
+            },
+            "Ethernet45": {
+                "4pair": 1,
+                "dev-id": 11,
+                "ch0": 0,
+                "ch1": 2
+            },
+            "Ethernet46": {
+                "4pair": 1,
+                "dev-id": 11,
+                "ch0": 5,
+                "ch1": 7
+            },
+            "Ethernet47": {
+                "4pair": 1,
+                "dev-id": 11,
+                "ch0": 4,
+                "ch1": 6
+            }
+        },
+        "default-config": {
+            "poe-global":{
+                "enable" : "true",
+                "power-management": "dynamic-with-priority",
+                "guard-band":"30"
+            },
+            "poe-port":{
+                "0-47":{
+                    "enable" : "false",
+                    "lldp-state" : "disabled",
+                    "reset-mode" : "manual",
+                    "detection-type" : "four-point-dot3af",
+                    "power-up-mode" : "dot3bt-type4",
+                    "priority" : "low",
+                    "power-threshold-type" : "class-based"
+                }
+            }
+        }
+}

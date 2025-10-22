@@ -1,0 +1,8 @@
+sonic-platform-modules-cls (1.0) stable; urgency=low
+
+  * Support for the Celestica Platforms 2025
+  * DS1000, DS2000, DS3000, DS4000
+  * DS4100, DS4101, DS5000
+  * ES1010, ES1050, EG1050
+
+ -- Jemston Fernando <sjemstonirudayam.fernando@celestica.com>  Wed, 22 Oct 2025 10:10:00 +0530
