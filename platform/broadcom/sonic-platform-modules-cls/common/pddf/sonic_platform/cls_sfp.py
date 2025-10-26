@@ -18,6 +18,17 @@ class ClsPddfSfp(PddfSfp):
     """
     PDDF Platform-Specific Sfp class
     """
+    # SFP_PORT_TYPE_BIT in SfpBase is misleading as some types are
+    # missing, hence using the generic cage types
+    SFP_CAGE_TYPE_RJ45          = 'RJ45'
+    SFP_CAGE_TYPE_XFP           = 'XFP'
+    SFP_CAGE_TYPE_CFP           = 'CFP'
+    SFP_CAGE_TYPE_CFP2          = 'CFP2'
+    SFP_CAGE_TYPE_SFP           = 'SFP'
+    SFP_CAGE_TYPE_SFP_DD        = 'SFP-DD'
+    SFP_CAGE_TYPE_QSFP          = 'QSFP'
+    SFP_CAGE_TYPE_QSFP_DD       = 'QSFP-DD'
+    SFP_CAGE_TYPE_OSFP          = 'OSFP'
 
     def __init__(self, index, pddf_data=None, pddf_plugin_data=None):
         PddfSfp.__init__(self, index, pddf_data, pddf_plugin_data)

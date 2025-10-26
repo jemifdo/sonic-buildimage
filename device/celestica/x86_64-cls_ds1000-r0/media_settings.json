@@ -1,43 +1,43 @@
 {
     "GLOBAL_MEDIA_SETTINGS": {
         "49-52": {
-            "10000-copper-1.0M": {
+            "COPPER-10-1.0M": {
                 "preemphasis": {
                     "lane0": "0x14410a"
                 },
                 "media": "copper"
             },
-            "10000-copper-3.0M": {
+            "COPPER-10-3.0M": {
                 "preemphasis": {
                     "lane0": "0x14410a"
                 },
                 "media": "copper"
             },
-            "10000-copper-5.0M": {
+            "COPPER-10-5.0M": {
                 "preemphasis": {
                     "lane0": "0x14410a"
                 },
                 "media": "copper"
             },
-            "10000-copper-7.0M": {
+            "COPPER-10-7.0M": {
                 "preemphasis": {
                     "lane0": "0x14410a"
                 },
                 "media": "copper"
             },
-            "10000-optical": {
+            "OPTICAL-10": {
                 "preemphasis": {
                     "lane0": "0x0c4104"
                 },
                 "media": "fiber"
             },
-            "1000-optical": {
+            "OPTICAL-1": {
                 "preemphasis": {
                     "lane0": "0x14410a"
                 },
                 "media": "fiber"
             },
-            "1000-copper-default": {
+            "COPPER-1": {
                 "preemphasis": {
                     "lane0": "0x14410a"
                 },
@@ -51,43 +51,43 @@
             }
         },
         "53-56": {
-            "10000-copper-1.0M": {
+            "COPPER-10-1.0M": {
                 "preemphasis": {
                     "lane0": "0x0a280a"
                 },
                 "media": "copper"
             },
-            "10000-copper-3.0M": {
+            "COPPER-10-3.0M": {
                 "preemphasis": {
                     "lane0": "0x0a280a"
                 },
                 "media": "copper"
             },
-            "10000-copper-5.0M": {
+            "COPPER-10-5.0M": {
                 "preemphasis": {
                     "lane0": "0x0a280a"
                 },
                 "media": "copper"
             },
-            "10000-copper-7.0M": {
+            "COPPER-10-7.0M": {
                 "preemphasis": {
                     "lane0": "0x0f2805"
                 },
                 "media": "copper"
             },
-            "10000-optical": {
+            "OPTICAL-10": {
                 "preemphasis": {
                     "lane0": "0x0a3200"
                 },
                 "media": "fiber"
             },
-            "1000-optical": {
+            "OPTICAL-1": {
                 "preemphasis": {
                     "lane0": "0x0a3200"
                 },
                 "media": "fiber"
             },
-            "1000-copper-default": {
+            "COPPER-1": {
                 "preemphasis": {
                     "lane0": "0x0a3200"
                 },

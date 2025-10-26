@@ -23,14 +23,15 @@ UNKNOWN_VER = "Unknown"
 BMC_EXIST = APIHelper().get_bmc_status()
 
 COMPONENT_LIST = [
-    ("BIOS",         "Basic Input/Output System"),
-    ("ONIE",         "Open Network Install Environment"),
-    ("FPGA",         "FPGA for transceiver EEPROM access and other component I2C access"),
-    ("CPLD COMe",    "COMe board CPLD"),
-    ("CPLD BASE",    "CPLD for board functions and watchdog"),
-    ("CPLD SW1",     "CPLD for port control OSFP(1-32)"),
-    ("CPLD SW2",     "CPLD for port control OSFP(33-64)"),
-    ("SSD",          "Solid State Drive firmware"),
+    ("BIOS",        "Basic Input/Output System"),
+    ("ONIE",        "Open Network Install Environment"),
+    ("FPGA",        "FPGA for transceiver EEPROM access and other component I2C access"),
+    ("CPLD COMe",   "COMe board CPLD"),
+    ("CPLD BASE",   "CPLD for board functions and watchdog"),
+    ("CPLD SW1",    "CPLD for port control OSFP(1-32)"),
+    ("CPLD SW2",    "CPLD for port control OSFP(33-64)"),
+    ("ASIC PCIe",   "ASIC PCIe Firmware"),
+    ("SSD",         "Solid State Drive firmware"),
 ]
 
 if BMC_EXIST:
@@ -117,6 +118,14 @@ class Component(ComponentBase):
         status, result = self._api_helper.run_command(cmd)
         return result
 
+    def __get_asic_pcie_ver(self):
+        cmd = "bcmcmd 'dsh -c \"pciephy fwinfo\"' 2>&1 | awk '/PCIe FW loader version/{print $5}'"
+        status, result = self._api_helper.run_command(cmd)
+        if status and result:
+            return result
+        else:
+            return "N/A"
+
     def get_name(self):
         """
         Retrieves the name of the component
@@ -147,10 +156,12 @@ class Component(ComponentBase):
             fw_version = self.__get_onie_ver()
         elif "CPLD" in self.name:
             fw_version = self.__get_cpld_ver()
-        elif self.name == "FPGA":
+        elif "FPGA" == self.name:
             fw_version = self.__get_fpga_ver()
         elif "BMC" in self.name:
             fw_version = self.__get_bmc_ver()
+        elif "ASIC PCIe" == self.name:
+            fw_version = self.__get_asic_pcie_ver()
         elif "SSD" in self.name:
             fw_version = self.__get_ssd_ver()
         return fw_version

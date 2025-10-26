@@ -83,24 +83,13 @@ class Psu(PddfPsu):
             STATUS_LED_COLOR_RED = "red"
             STATUS_LED_COLOR_OFF = "off"
         """
-        index = str(self.psu_index-1)
-        psu_led_device = "PSU{}".format(self.psu_index) + "_LED"
-
-        if psu_led_device not in self.pddf_obj.data.keys():
-            if self.get_presence():
-                if self.get_powergood_status():
-                    return self.STATUS_LED_COLOR_BLUE
-                else:
-                    return self.STATUS_LED_COLOR_AMBER
+        if self.get_presence():
+            if self.get_powergood_status():
+                return self.STATUS_LED_COLOR_BLUE
             else:
-                return self.STATUS_LED_COLOR_OFF
-
-        device_name = self.pddf_obj.data[psu_led_device]['dev_info']['device_name']
-        self.pddf_obj.create_attr('device_name', device_name,  self.pddf_obj.get_led_path())
-        self.pddf_obj.create_attr('index', index, self.pddf_obj.get_led_path())
-        self.pddf_obj.create_attr('dev_ops', 'get_status',  self.pddf_obj.get_led_path())
-        color = self.pddf_obj.get_led_color()
-        return (color)      
+                return self.STATUS_LED_COLOR_AMBER
+        else:
+            return self.STATUS_LED_COLOR_OFF
 
     def get_revision(self):
         """
@@ -121,30 +110,6 @@ class Psu(PddfPsu):
             output = self._api_helper.i2c_read(84 + self.psu_index - 1, 0x50, 0x40, 3)
             return bytes.fromhex(output.replace('0x', '').replace(" ", "")).decode("utf-8")
         return 'N/A'
-    
-    def get_temperature(self):
-        """
-        Retrieves current temperature reading from PSU
-
-        Returns:
-            A float number of current temperature in Celsius up to nearest thousandth
-            of one degree Celsius, e.g. 30.125
-        """
-        device = "PSU{}".format(self.psu_index)
-        output = self.pddf_obj.get_attr_name_output(device, "psu_temp1_input")
-        if not output:
-            return 0.0
-
-        temp1 = output['status']
-        if temp1.isalpha():
-            attr_value = None
-        else:
-            attr_value = float(temp1)
-
-        if output['mode'] == 'bmc':
-            return attr_value
-        else:
-            return (attr_value/float(1000))
 
     def get_temperature_high_threshold(self):
         return 60

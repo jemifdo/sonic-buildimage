@@ -44,7 +44,8 @@ bcm_device:
             #UDF Hash support
             sai_l3_byte1_udf_disable: 1
             sai_rdma_udf_disable: 1
-            sai_common_hash_crc: 1 
+            sai_common_hash_crc: 1
+            stat_custom_receive0_management_mode: 1
 ...
 ---
 device:

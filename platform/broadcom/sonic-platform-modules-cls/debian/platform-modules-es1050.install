@@ -11,5 +11,5 @@ es1050/service/cls-poe-manager.service lib/systemd/system
 poe-service/poe_daemon.py usr/local/bin
 es1050/udev/70-persistent-net.rules etc/udev/rules.d
 es1050/scripts/sensors usr/bin
-es1050/scripts/platform_sensors.py usr/local/bin
+common/scripts/platform_sensors.py usr/local/bin
 es1050/scripts/poe_service_check.sh usr/local/bin

@@ -5,7 +5,7 @@
         "num_fantrays":3,
         "num_fans_pertray":2,
         "num_ports":66,
-        "num_temps":25,
+        "num_temps":30,
         "bmc_present" : "True",
         "pddf_dev_types":
         {
@@ -340,15 +340,16 @@
                     { "attr_name":"psu_model_name", "bmc_cmd":"ipmitool fru print 4", "raw":"0", "field_name":"Product Name", "separator":":", "field_pos":"2"},
                     { "attr_name":"psu_mfr_id", "bmc_cmd":"ipmitool fru print 4", "raw":"0", "field_name":"Product Manufacturer", "separator":":", "field_pos":"2"},
                     { "attr_name":"psu_serial_num", "bmc_cmd":"ipmitool fru print 4", "raw":"0", "field_name":"Product Serial", "separator":":", "field_pos":"2"},
-                    { "attr_name":"psu_v_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x4d", "raw":"1", "type":"raw", "index":"0", "multiplier":"1.18"},
-                    { "attr_name":"psu_v_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x4e",  "raw":"1", "type":"raw", "index":"0","multiplier":"1000"},
-                    { "attr_name":"psu_i_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x1", "raw":"1","type":"raw", "index":"0", "multiplier":"0.078"},
-                    { "attr_name":"psu_i_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x2", "raw":"1", "type":"raw", "index":"0","multiplier":"1000"},
-                    { "attr_name":"psu_p_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x1f", "raw":"1", "type":"raw", "index":"0", "multiplier":"11.8"},
-                    { "attr_name":"psu_p_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x20", "raw":"1", "type":"raw", "index":"0","multiplier":"11800000"},
-                    { "attr_name":"psu_p_out_max", "bmc_cmd":"ipmitool raw 0x04 0x27 0x20", "raw":"1", "type":"raw", "index":"4","multiplier":"11.8"},
-                    { "attr_name":"psu_fan1_speed_rpm", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x1b","raw":"1", "type":"raw", "index":"0","multiplier":"118"},
-                    { "attr_name":"psu_temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x35","raw":"1", "type":"raw", "index":"0"}
+                    { "attr_name":"psu_v_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x4d", "raw":"1", "type":"raw", "index":"0", "multiplier":"1180"},
+                    { "attr_name":"psu_v_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x4e",  "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    { "attr_name":"psu_i_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x1", "raw":"1", "type":"raw", "index":"0", "multiplier":"78"},
+                    { "attr_name":"psu_i_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x2", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    { "attr_name":"psu_p_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x1f", "raw":"1", "type":"raw", "index":"0", "multiplier":"11800000"},
+                    { "attr_name":"psu_p_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x20", "raw":"1", "type":"raw", "index":"0", "multiplier":"11800000"},
+                    { "attr_name":"psu_p_out_max", "bmc_cmd":"ipmitool raw 0x04 0x27 0x20", "raw":"1", "type":"raw", "index":"4", "multiplier":"11.8"},
+                    { "attr_name":"psu_fan1_speed_rpm", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x1b", "raw":"1", "type":"raw", "index":"0", "multiplier":"118"},
+                    { "attr_name":"psu_temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x35", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    {"attr_name":"psu_temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x35", "raw":"1", "type":"raw", "index":"4", "multiplier":"1000"}
                 ]
             }
         }
@@ -364,15 +365,16 @@
                     { "attr_name":"psu_model_name", "bmc_cmd":"ipmitool fru print 5", "raw":"0", "field_name":"Product Name", "separator":":", "field_pos":"2"},
                     { "attr_name":"psu_mfr_id", "bmc_cmd":"ipmitool fru print 5", "raw":"0", "field_name":"Product Manufacturer", "separator":":", "field_pos":"2"},
                     { "attr_name":"psu_serial_num", "bmc_cmd":"ipmitool fru print 5", "raw":"0", "field_name":"Product Serial", "separator":":", "field_pos":"2"},
-                    { "attr_name":"psu_v_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x4f", "raw":"1", "type":"raw", "index":"0","multiplier":"1.18"},
-                    { "attr_name":"psu_v_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x50", "raw":"1", "type":"raw", "index":"0","multiplier":"1000"},
-                    { "attr_name":"psu_i_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x3", "raw":"1", "type":"raw", "index":"0","multiplier":"0.078"},
-                    { "attr_name":"psu_i_out", "bmc_cmd":"ipmitool raw  0x04 0x2d 0x4", "raw":"1", "type":"raw", "index":"0","multiplier":"1000"},
-                    { "attr_name":"psu_p_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x21",  "raw":"1", "type":"raw", "index":"0","multiplier":"11.8"},
+                    { "attr_name":"psu_v_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x4f", "raw":"1", "type":"raw", "index":"0", "multiplier":"1180"},
+                    { "attr_name":"psu_v_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x50", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    { "attr_name":"psu_i_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x3", "raw":"1", "type":"raw", "index":"0", "multiplier":"78"},
+                    { "attr_name":"psu_i_out", "bmc_cmd":"ipmitool raw  0x04 0x2d 0x4", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    { "attr_name":"psu_p_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x21", "raw":"1", "type":"raw", "index":"0", "multiplier":"11800000"},
                     { "attr_name":"psu_p_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x22", "raw":"1", "type":"raw", "index":"0", "multiplier":"11800000"},
-                    { "attr_name":"psu_p_out_max", "bmc_cmd":"ipmitool raw 0x04 0x027 0x22", "raw":"1", "type":"raw", "index":"4","multiplier":"11.8"},
-                    { "attr_name":"psu_fan1_speed_rpm", "bmc_cmd":"ipmitool raw 0x04 0x02d 0x1c", "raw":"1", "type":"raw", "index":"0","multiplier":"118"},
-                    { "attr_name":"psu_temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x38",  "raw":"1", "type":"raw", "index":"0"}
+                    { "attr_name":"psu_p_out_max", "bmc_cmd":"ipmitool raw 0x04 0x027 0x22", "raw":"1", "type":"raw", "index":"4", "multiplier":"11.8"},
+                    { "attr_name":"psu_fan1_speed_rpm", "bmc_cmd":"ipmitool raw 0x04 0x02d 0x1c", "raw":"1", "type":"raw", "index":"0", "multiplier":"118"},
+                    { "attr_name":"psu_temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x38",  "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    {"attr_name":"psu_temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x38", "raw":"1", "type":"raw", "index":"4", "multiplier":"1000"}
                 ]
             }
         }
@@ -388,15 +390,16 @@
                     { "attr_name":"psu_model_name", "bmc_cmd":"ipmitool fru print 6", "raw":"0", "field_name":"Product Name", "separator":":", "field_pos":"2"},
                     { "attr_name":"psu_mfr_id", "bmc_cmd":"ipmitool fru print 6", "raw":"0", "field_name":"Product Manufacturer", "separator":":", "field_pos":"2"},
                     { "attr_name":"psu_serial_num", "bmc_cmd":"ipmitool fru print 6", "raw":"0", "field_name":"Product Serial", "separator":":", "field_pos":"2"},
-                    { "attr_name":"psu_v_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x51", "raw":"1", "type":"raw", "index":"0","multiplier":"1.18"},
-                    { "attr_name":"psu_v_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x52","raw":"1", "type":"raw", "index":"0","multiplier":"1000"},
-                    { "attr_name":"psu_i_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x5", "raw":"1", "type":"raw", "index":"0","multiplier":"0.078"},
-                    { "attr_name":"psu_i_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x6","raw":"1", "type":"raw", "index":"0","multiplier":"1000"},
-                    { "attr_name":"psu_p_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x23", "raw":"1", "type":"raw", "index":"0", "multiplier":"11.8"},
+                    { "attr_name":"psu_v_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x51", "raw":"1", "type":"raw", "index":"0", "multiplier":"1180"},
+                    { "attr_name":"psu_v_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x52", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    { "attr_name":"psu_i_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x5", "raw":"1", "type":"raw", "index":"0", "multiplier":"78"},
+                    { "attr_name":"psu_i_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x6", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    { "attr_name":"psu_p_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x23", "raw":"1", "type":"raw", "index":"0", "multiplier":"11800000"},
                     { "attr_name":"psu_p_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x24", "raw":"1", "type":"raw", "index":"0", "multiplier":"11800000"},
                     { "attr_name":"psu_p_out_max", "bmc_cmd":"ipmitool raw 0x04 0x27 0x24", "raw":"1", "type":"raw", "index":"4", "multiplier":"11.8"},
                     { "attr_name":"psu_fan1_speed_rpm", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x1d", "raw":"1", "type":"raw", "index":"0", "multiplier":"118"},
-                    { "attr_name":"psu_temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x3b","raw":"1", "type":"raw", "index":"0"}
+                    { "attr_name":"psu_temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x3b", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    {"attr_name":"psu_temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x3b", "raw":"1", "type":"raw", "index":"4", "multiplier":"1000"}
                 ]
             }
         }
@@ -412,15 +415,16 @@
                     { "attr_name":"psu_model_name", "bmc_cmd":"ipmitool fru print 7", "raw":"0", "field_name":"Product Name", "separator":":", "field_pos":"2"},
                     { "attr_name":"psu_mfr_id", "bmc_cmd":"ipmitool fru print 7", "raw":"0", "field_name":"Product Manufacturer", "separator":":", "field_pos":"2"},
                     { "attr_name":"psu_serial_num", "bmc_cmd":"ipmitool fru print 7", "raw":"0", "field_name":"Product Serial", "separator":":", "field_pos":"2"},
-                    { "attr_name":"psu_v_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x53", "raw":"1", "type":"raw", "index":"0","multiplier":"1.18"},
-                    { "attr_name":"psu_v_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x54","raw":"1", "type":"raw", "index":"0","multiplier":"1000"},
-                    { "attr_name":"psu_i_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x7","raw":"1", "type":"raw", "index":"0","multiplier":"0.078"},
-                    { "attr_name":"psu_i_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x8", "raw":"1", "type":"raw", "index":"0","multiplier":"1000"},
-                    { "attr_name":"psu_p_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x25","raw":"1", "type":"raw", "index":"0","multiplier":"11.8"},
-                    { "attr_name":"psu_p_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x26", "raw":"1", "type":"raw", "index":"0","multiplier":"11800000"},
-                    { "attr_name":"psu_p_out_max", "bmc_cmd":"ipmitool raw 0x04 0x27 0x26", "raw":"1", "type":"raw", "index":"4","multiplier":"11.8"},
-                    { "attr_name":"psu_fan1_speed_rpm", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x1e","raw":"1", "type":"raw", "index":"0","multiplier":"118"},
-                    { "attr_name":"psu_temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x3e", "raw":"1", "type":"raw", "index":"0"}
+                    { "attr_name":"psu_v_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x53", "raw":"1", "type":"raw", "index":"0", "multiplier":"1180"},
+                    { "attr_name":"psu_v_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x54", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    { "attr_name":"psu_i_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x7", "raw":"1", "type":"raw", "index":"0", "multiplier":"78"},
+                    { "attr_name":"psu_i_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x8", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    { "attr_name":"psu_p_in", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x25", "raw":"1", "type":"raw", "index":"0", "multiplier":"11800000"},
+                    { "attr_name":"psu_p_out", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x26", "raw":"1", "type":"raw", "index":"0", "multiplier":"11800000"},
+                    { "attr_name":"psu_p_out_max", "bmc_cmd":"ipmitool raw 0x04 0x27 0x26", "raw":"1", "type":"raw", "index":"4", "multiplier":"11.8"},
+                    { "attr_name":"psu_fan1_speed_rpm", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x1e", "raw":"1", "type":"raw", "index":"0", "multiplier":"118"},
+                    { "attr_name":"psu_temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x3e", "raw":"1", "type":"raw", "index":"0", "multiplier":"1000"},
+                    {"attr_name":"psu_temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x3e", "raw":"1", "type":"raw", "index":"4", "multiplier":"1000"}
                 ]
             }
         }
@@ -594,6 +598,21 @@
     "TEMP13":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
+        "dev_attr": { "display_name":"TH5_CORE_TEMP"},
+        "bmc": {
+            "ipmitool" : {
+                "attr_list":
+                [
+                    { "attr_name":"temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x41", "raw":"1", "type":"raw", "index":"0", "signed":"1", "multiplier":"0.63", "offset":"70"},
+                    { "attr_name":"temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x41", "raw":"1", "type":"raw", "index":"4", "signed":"1", "multiplier":"0.63", "offset":"70"},
+                    { "attr_name":"temp1_high_crit_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x41", "raw":"1", "type":"raw", "index":"5", "signed":"1", "multiplier":"0.63", "offset":"70"}
+                ]
+            }
+        }
+    },
+    "TEMP14":
+    {
+        "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"TH5_REAR_LEFT"},
         "bmc": {
             "ipmitool" : {
@@ -606,7 +625,7 @@
             }
         }
     },
-    "TEMP14":
+    "TEMP15":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"TH5_REAR_RIGHT"},
@@ -621,7 +640,7 @@
             }
         }
     },
-    "TEMP15":
+    "TEMP16":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"XP0R8V_TEMP"},
@@ -634,7 +653,7 @@
             }
         }
     },
-    "TEMP16":
+    "TEMP17":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"XP0R9V_0_TEMP"},
@@ -647,7 +666,7 @@
             }
         }
     },
-    "TEMP17":
+    "TEMP18":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"XP0R9V_1_TEMP"},
@@ -660,7 +679,7 @@
             }
         }
     },
-    "TEMP18":
+    "TEMP19":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"XP0R75V_0_TEMP"},
@@ -673,7 +692,7 @@
             }
         }
     },
-    "TEMP19":
+    "TEMP20":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"XP0R75V_1_TEMP"},
@@ -686,7 +705,7 @@
             }
         }
     },
-    "TEMP20":
+    "TEMP21":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"XP1R2V_0_TEMP"},
@@ -699,7 +718,7 @@
             }
         }
     },
-    "TEMP21":
+    "TEMP22":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"XP1R2V_1_TEMP"},
@@ -712,7 +731,7 @@
             }
         }
     },
-    "TEMP22":
+    "TEMP23":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"XP3R3V_E_TEMP"},
@@ -725,7 +744,7 @@
             }
         }
     },
-    "TEMP23":
+    "TEMP24":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"XP3R3V_W_TEMP"},
@@ -738,7 +757,22 @@
             }
         }
     },
-    "TEMP24":
+    "TEMP25":
+    {
+        "dev_info": { "device_type":"TEMP_SENSOR"},
+        "dev_attr": { "display_name":"CPU_TEMP"},
+        "bmc": {
+            "ipmitool" : {
+                "attr_list":
+                [
+                    { "attr_name":"temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x2f","raw":"1", "type":"raw", "index":"0"},
+                    { "attr_name":"temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x2f", "raw":"1", "type":"raw", "index":"4"},
+                    { "attr_name":"temp1_high_crit_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x2f", "raw":"1", "type":"raw", "index":"5"}
+                ]
+            }
+        }
+    },
+    "TEMP26":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"DIMM0_TEMP"},
@@ -746,12 +780,14 @@
             "ipmitool" : {
                 "attr_list":
                 [
-                    { "attr_name":"temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x30","raw":"1", "type":"raw", "index":"0"}
+                    { "attr_name":"temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x30","raw":"1", "type":"raw", "index":"0"},
+                    { "attr_name":"temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x30", "raw":"1", "type":"raw", "index":"4"},
+                    { "attr_name":"temp1_high_crit_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x30", "raw":"1", "type":"raw", "index":"5"}
                 ]
             }
         }
     },
-    "TEMP25":
+    "TEMP27":
     {
         "dev_info": { "device_type":"TEMP_SENSOR"},
         "dev_attr": { "display_name":"DIMM1_TEMP"},
@@ -759,7 +795,54 @@
             "ipmitool" : {
                 "attr_list":
                 [
-                    { "attr_name":"temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x31","raw":"1", "type":"raw", "index":"0"}
+                    { "attr_name":"temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x31","raw":"1", "type":"raw", "index":"0"},
+                    { "attr_name":"temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x31", "raw":"1", "type":"raw", "index":"4"},
+                    { "attr_name":"temp1_high_crit_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x31", "raw":"1", "type":"raw", "index":"5"}
+                ]
+            }
+        }
+    },
+    "TEMP28":
+    {
+        "dev_info": { "device_type":"TEMP_SENSOR"},
+        "dev_attr": { "display_name":"INLET1_Temp"},
+        "bmc": {
+            "ipmitool" : {
+                "attr_list":
+                [
+                    { "attr_name":"temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x32","raw":"1", "type":"raw", "index":"0"},
+                    { "attr_name":"temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x32", "raw":"1", "type":"raw", "index":"4"},
+                    { "attr_name":"temp1_high_crit_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x32", "raw":"1", "type":"raw", "index":"5"}
+                ]
+            }
+        }
+    },
+    "TEMP29":
+    {
+        "dev_info": { "device_type":"TEMP_SENSOR"},
+        "dev_attr": { "display_name":"INLET2_Temp"},
+        "bmc": {
+            "ipmitool" : {
+                "attr_list":
+                [
+                    { "attr_name":"temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x33","raw":"1", "type":"raw", "index":"0"},
+                    { "attr_name":"temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x33", "raw":"1", "type":"raw", "index":"4"},
+                    { "attr_name":"temp1_high_crit_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x33", "raw":"1", "type":"raw", "index":"5"}
+                ]
+            }
+        }
+    },
+    "TEMP30":
+    {
+        "dev_info": { "device_type":"TEMP_SENSOR"},
+        "dev_attr": { "display_name":"INLET_Temp"},
+        "bmc": {
+            "ipmitool" : {
+                "attr_list":
+                [
+                    { "attr_name":"temp1_input", "bmc_cmd":"ipmitool raw 0x04 0x2d 0x34","raw":"1", "type":"raw", "index":"0"},
+                    { "attr_name":"temp1_high_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x34", "raw":"1", "type":"raw", "index":"4"},
+                    { "attr_name":"temp1_high_crit_threshold", "bmc_cmd":"ipmitool raw 0x04 0x27 0x34", "raw":"1", "type":"raw", "index":"5"}
                 ]
             }
         }

@@ -10,6 +10,7 @@
                 "CPLD BASE": {},
                 "CPLD SW1": {},
                 "CPLD SW2": {},
+                "ASIC PCIe": {},
                 "SSD": {}
             }
         }

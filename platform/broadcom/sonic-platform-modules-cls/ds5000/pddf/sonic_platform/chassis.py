@@ -63,24 +63,15 @@ class Chassis(PddfChassis):
         for port_idx in range(1, self.platform_inventory['num_ports'] + 1):
             self.sfp_status_dict[port_idx] = self.get_sfp(port_idx).get_presence()
 
-        thermal_count = len(self._thermal_list)
         if not self._api_helper.with_bmc():
+            thermal_count = len(self._thermal_list)
             for idx, name in enumerate(NONPDDF_THERMAL_SENSORS):
                 thermal = NonPddfThermal(thermal_count + idx, name)
                 self._thermal_list.append(thermal)
-        else:
-            thermal = NonPddfThermal(thermal_count + 0, "CPU_TEMP")
-            self._thermal_list.append(thermal)
-            thermal = NonPddfThermal(thermal_count + 1, "TH5_CORE_TEMP")
-            self._thermal_list.append(thermal)
-            thermal = NonPddfThermal(thermal_count + 2, "STORAGE_TEMP")
-            self._thermal_list.append(thermal)
-            thermal = NonPddfThermal(thermal_count + 3, "OSFP_TEMP")
-            self._thermal_list.append(thermal)
 
     def __initialize_components(self):
 
-        self.NUM_COMPONENT = 8
+        self.NUM_COMPONENT = 9
     
         if self._api_helper.with_bmc(): 
             self.NUM_COMPONENT = self.NUM_COMPONENT + 1

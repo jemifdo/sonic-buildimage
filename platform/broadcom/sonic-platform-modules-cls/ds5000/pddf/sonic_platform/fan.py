@@ -96,7 +96,7 @@ class Fan(PddfFan):
             A string, either FAN_DIRECTION_INTAKE or FAN_DIRECTION_EXHAUST
             depending on fan direction
         """
-        return self.FAN_DIRECTION_EXHAUST
+        return self.FAN_DIRECTION_EXHAUST.upper()
 
     def get_speed(self):
         """
@@ -112,10 +112,12 @@ class Fan(PddfFan):
             if self.get_presence() is False:
                 return 0
 
-            reg = self.FANTRAY_PWM_CTRL_REG_MAP.get(self.fantray_index)
-            status, fpwm = self._api_helper.cpld_lpc_read(reg)
-            pwm_to_dc = eval(self.plugin_data['FAN']['pwm_to_duty_cycle'])
-            speed_percentage = int(round(pwm_to_dc(int(fpwm, 16))))
+            speed_rpm = self.get_speed_rpm()
+            direction = self.get_direction()
+            plugin_dict = self.plugin_data['FAN']['FAN_MAX_RPM_SPEED'][direction]
+            max_speed = plugin_dict[str(self.fan_index - 1)]
+
+            speed_percentage = round((speed_rpm * 100) / int(max_speed))
 
             return speed_percentage
             

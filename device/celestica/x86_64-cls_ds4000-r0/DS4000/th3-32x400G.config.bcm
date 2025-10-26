@@ -14,8 +14,8 @@ sai_tunnel_global_sip_mask_enable=1
 sai_fdb_entry_l2_discard_src_enable=1
 phy_an_c73=3
 
-l2_mem_entries=40000
-l3_mem_entries=40000
+l2_mem_entries=8192
+l3_mem_entries=16384
 l3_alpm_enable=2
 
 #UDF Hash support
