@@ -7,6 +7,8 @@ import sys
 
 level1_keys = ["GLOBAL_MEDIA_SETTINGS","PORT_MEDIA_SETTINGS"]
 
+port_media_key = "media"
+port_media_list = ["copper", "fiber", "backplane"]
 si_param_list = ["preemphasis", "idriver", "ipredriver", \
                  "main", "pre1", "pre2", "pre3", \
                  "post1", "post2", "post3", "attn", \
@@ -66,6 +68,12 @@ def check_media_dict(vendor_dict):
                 settings_dict = value_dict
 
             for si_param in settings_dict:
+                if si_param == port_media_key:
+                    if settings_dict[si_param] not in port_media_list:
+                        print("Unknown media type " + settings_dict[si_param])
+                        return False
+                    else:
+                        continue
                 if si_param not in si_param_list:
                     print("Unknown media setting " + si_param)
                     return False

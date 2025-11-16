@@ -13,6 +13,7 @@ cache = {}
 SONIC_CFGGEN_PATH = '/usr/local/bin/sonic-cfggen'
 HWSKU_KEY = 'DEVICE_METADATA.localhost.hwsku'
 PLATFORM_KEY = 'DEVICE_METADATA.localhost.platform'
+PLATFORM_SDR_ELIST_FILE = "/usr/share/sonic/platform/sdr_elist"
 
 dirname = os.path.dirname(os.path.realpath(__file__))
 
@@ -904,16 +905,76 @@ class PddfApi():
         return str(value)
 
     def raw_ipmi_get_request(self, bmc_attr):
-        value = 'N/A'
-        cmd = bmc_attr['bmc_cmd'] + " 2>/dev/null"
-        if bmc_attr['type'] == 'raw':
+        value = None
+        if 'sensor' in bmc_attr['type']:
+            sensor = True
+        else:
+            cmd = bmc_attr['bmc_cmd'] + " 2>/dev/null"
+            sensor = False
+
+        if bmc_attr['type'] == 'raw' or sensor:
+            if sensor:
+                id_str = self.get_sensor_id(bmc_attr['name'])
+                if id_str == '':
+                    return bmc_attr.get('default', 'N/A')
+
+                bmc_attr['bmc_cmd'] = None
+                if bmc_attr['type'] == 'sensor value':
+                    bmc_attr['bmc_cmd'] = '/usr/bin/ipmitool raw 0x04 0x2d {} 2>/dev/null'.format(id_str)
+                elif bmc_attr['type'] == 'sensor threshold':
+                    bmc_attr['bmc_cmd'] = '/usr/bin/ipmitool raw 0x04 0x27 {} 2>/dev/null'.format(id_str)
+
+                if not bmc_attr['bmc_cmd']:
+                    return bmc_attr.get('default', 'N/A')
+                cmd = bmc_attr['bmc_cmd']
             try:
                 value = subprocess.check_output(cmd, shell=True, universal_newlines=True).strip()
+
+                if 'index' in bmc_attr.keys():
+                    idx = int(bmc_attr['index'])
+                    #Assuming value is a string of bytes seperated by space
+                    value = value.split(' ')[idx]
+
+                value = int(value, 16)
+
+                if bmc_attr.get("signed", "0") == "1" and value > 127:
+                    value = value - (1 << 8)
+
+                for attr in bmc_attr.keys():
+                    if attr == 'mask':
+                        mask = int(bmc_attr['mask'], 16)
+                        value = value & mask
+                    elif attr == 'offset':
+                        inc = float(bmc_attr['offset'])
+                        value = value + inc
+                        if inc.is_integer():
+                            value = int(value)
+                    elif attr == 'multiplier':
+                        mult = float(bmc_attr['multiplier'])
+                        value = value * mult
+                        if mult.is_integer():
+                            value = int(value)
+                    elif attr == 'cmpvaleq':
+                        if value == int(bmc_attr['cmpvaleq']):
+                            return bmc_attr['true']
+                        else:
+                            return bmc_attr['false']
+                    elif attr == 'cmpvalneq':
+                        if value != int(bmc_attr['cmpvalneq']):
+                            return bmc_attr['true']
+                        else:
+                            return bmc_attr['false']
+                    elif attr == 'formula':
+                        value = eval(bmc_attr['formula'].format(value))
+
             except Exception as e:
                 pass
 
-            if value != 'N/A':
-                value = str(int(value, 16))
+            if value != None:
+                value = str(value)
+            else:
+                value = 'N/A'
+
             return value
 
         if bmc_attr['type'] == 'mask':
@@ -923,8 +984,10 @@ class PddfApi():
             except Exception as e:
                 pass
 
-            if value != 'N/A':
+            if value:
                 value = str(int(value, 16) & mask)
+            else:
+                value = 'N/A'
 
             return value
 
@@ -1025,3 +1088,24 @@ class PddfApi():
             output['status'] = True
 
         return output
+
+    def get_sensor_id(self, name):
+        sensor_id_str = ''
+
+        cmd = ['ipmitool', 'sdr', 'elist']
+        try:
+            if not os.path.isfile(PLATFORM_SDR_ELIST_FILE):
+                cmd = ['ipmitool', 'sdr', 'elist']
+                output = subprocess.check_output(cmd, universal_newlines=True).strip()
+                with open(PLATFORM_SDR_ELIST_FILE, 'w') as fd:
+                    fd.write(output)
+
+            with open(PLATFORM_SDR_ELIST_FILE, 'r') as fd:
+                for line in fd:
+                    if line.startswith(name):
+                        sensor_id_str = '0x' + line.split('|')[1].strip()[:-1].lower()
+                        break
+        except subprocess.CalledProcessError:
+            pass
+
+        return sensor_id_str

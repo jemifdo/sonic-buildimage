@@ -90,11 +90,12 @@ class PddfPsu(PsuBase):
         status = 0
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_present")
-        if not output:
-            return False
 
-        mode = output['mode']
-        status = output['status']
+        try:
+            mode = output['mode']
+            status = output['status']
+        except (TypeError, KeyError):
+            return None
 
         vmap = self.plugin_data['PSU']['psu_present'][mode]['valmap']
 
@@ -112,10 +113,11 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_model_name")
-        if not output:
-            return None
 
-        model = output['status']
+        try:
+            model = output['status']
+        except (TypeError, KeyError):
+            return None
 
         # strip_non_ascii
         stripped = (c for c in model if 0 < ord(c) < 127)
@@ -132,10 +134,11 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_serial_num")
-        if not output:
-            return None
 
-        serial = output['status']
+        try:
+            serial = output['status']
+        except (TypeError, KeyError):
+            return None
 
         # strip_non_ascii
         stripped = (c for c in serial if 0 < ord(c) < 127)
@@ -153,11 +156,12 @@ class PddfPsu(PsuBase):
         device = "PSU{}".format(self.psu_index)
 
         output = self.pddf_obj.get_attr_name_output(device, "psu_power_good")
-        if not output:
-            return False
 
-        mode = output['mode']
-        status = output['status']
+        try:
+            mode = output['mode']
+            status = output['status']
+        except (TypeError, KeyError):
+            return None
 
         vmap = self.plugin_data['PSU']['psu_power_good'][mode]['valmap']
 
@@ -175,10 +179,11 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_mfr_id")
-        if not output:
-            return None
 
-        mfr = output['status']
+        try:
+            mfr = output['status']
+        except (TypeError, KeyError):
+            return None
 
         # strip_non_ascii
         stripped = (c for c in mfr if 0 < ord(c) < 127)
@@ -196,12 +201,13 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_v_out")
-        if not output:
-            return 0.0
 
-        v_out = output['status']
+        try:
+            v_out = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
 
-        return float(v_out)/1000
+        return (v_out/1000)
 
     def get_current(self):
         """
@@ -213,13 +219,14 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_i_out")
-        if not output:
-            return 0.0
 
-        i_out = output['status']
+        try:
+            i_out = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
 
         # current in mA
-        return float(i_out)/1000
+        return (i_out/1000)
 
     def get_power(self):
         """
@@ -231,13 +238,14 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_p_out")
-        if not output:
-            return 0.0
 
-        p_out = output['status']
+        try:
+            p_out = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
 
         # power is returned in micro watts
-        return float(p_out)/1000000
+        return (p_out/1000000)
 
     def get_powergood_status(self):
         """
@@ -282,13 +290,14 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_temp1_input")
-        if not output:
-            return 0.0
 
-        temp1 = output['status']
+        try:
+            temp1 = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
 
         # temperature returned is in milli celcius
-        return float(temp1)/1000
+        return (temp1/1000)
 
     def get_input_voltage(self):
         """
@@ -300,12 +309,13 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_v_in")
-        if not output:
-            return 0.0
 
-        v_in = output['status']
+        try:
+            v_in = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
 
-        return float(v_in)/1000
+        return (v_in/1000)
 
     def get_input_current(self):
         """
@@ -317,13 +327,14 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_i_in")
-        if not output:
-            return 0.0
 
-        i_in = output['status']
+        try:
+            i_in = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
 
         # current in mA
-        return float(i_in)/1000
+        return (i_in/1000)
 
     def get_input_power(self):
         """
@@ -333,13 +344,14 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_p_in")
-        if not output:
-            return 0.0
 
-        p_in = output['status']
+        try:
+            p_in = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
 
         # power is returned in micro watts
-        return float(p_in)/1000000
+        return (p_in/1000000)
 
     def get_temperature_high_threshold(self):
         """
@@ -350,11 +362,13 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_temp1_high_threshold")
-        if not output:
-            return 0.0
 
-        temp_high_thresh = output['status']
-        return float(temp_high_thresh)/1000
+        try:
+            temp_high_thresh = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
+
+        return (temp_high_thresh/1000)
 
     def get_voltage_high_threshold(self):
         """
@@ -365,11 +379,13 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_v_out_max")
-        if not output:
-            return 0.0
 
-        v_out_max = output['status']
-        return float(v_out_max)/1000
+        try:
+            v_out_max = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
+
+        return (v_out_max/1000)
 
     def get_voltage_low_threshold(self):
         """
@@ -380,11 +396,13 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_v_out_min")
-        if not output:
-            return 0.0
 
-        v_out_min = output['status']
-        return float(v_out_min)/1000
+        try:
+            v_out_min = float(['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
+
+        return (v_out_min/1000)
 
     def get_maximum_supplied_power(self):
         """
@@ -395,12 +413,14 @@ class PddfPsu(PsuBase):
         """
         device = "PSU{}".format(self.psu_index)
         output = self.pddf_obj.get_attr_name_output(device, "psu_p_out_max")
-        if not output:
-            return 0.0
 
-        p_out_max = output['status']
+        try:
+            p_out_max = float(output['status'])
+        except (TypeError, KeyError, ValueError):
+            return None
+
         # max power is in milliwatts
-        return float(p_out_max)/1000
+        return (p_out_max/1000)
 
     def get_position_in_parent(self):
         """

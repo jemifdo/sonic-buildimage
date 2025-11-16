@@ -42,7 +42,10 @@ class PddfThermal(ThermalBase):
 
     def get_name(self):
         if self.is_psu_thermal:
-            return "PSU{}_TEMP{}".format(self.thermals_psu_index, self.thermal_index)
+            if 'thermal_name' in self.plugin_data['PSU']:
+                return self.plugin_data['PSU']['thermal_name'][str(self.thermals_psu_index)]
+
+            return "PSU {} TEMP {}".format(self.thermals_psu_index, self.thermal_index)
         else:
             if 'dev_attr' in self.thermal_obj.keys():
                 if 'display_name' in self.thermal_obj['dev_attr']:
@@ -55,11 +58,12 @@ class PddfThermal(ThermalBase):
             # Temp sensor on the PSU
             device = "PSU{}".format(self.thermals_psu_index)
             output = self.pddf_obj.get_attr_name_output(device, "psu_present")
-            if not output:
-                return False
 
-            mode = output['mode']
-            status = output['status']
+            try:
+                mode = output['mode']
+                status = output['status']
+            except (TypeError, KeyError):
+                return None
 
             vmap = self.plugin_data['PSU']['psu_present'][mode]['valmap']
 
@@ -75,42 +79,39 @@ class PddfThermal(ThermalBase):
         if self.is_psu_thermal:
             device = "PSU{}".format(self.thermals_psu_index)
             output = self.pddf_obj.get_attr_name_output(device, "psu_temp1_input")
-            if not output:
+
+            try:
+                attr_value = float(output['status'])
+            except (TypeError, KeyError, ValueError):
                 return None
 
-            temp1 = output['status']
-            # temperature returned is in milli celcius
-            return float(temp1)/1000
+            return (attr_value/1000)
         else:
             output = self.pddf_obj.get_attr_name_output(self.thermal_obj_name, "temp1_input")
-            if not output:
-                return None
 
-            if output['status'].isalpha():
-                attr_value = None
-            else:
+            try:
                 attr_value = float(output['status'])
+            except (TypeError, KeyError, ValueError):
+                return None
 
             if output['mode'] == 'bmc':
                 return attr_value
             else:
-                return (attr_value/float(1000))
+                return (attr_value/1000)
 
     def get_high_threshold(self):
         if not self.is_psu_thermal:
             output = self.pddf_obj.get_attr_name_output(self.thermal_obj_name, "temp1_high_threshold")
-            if not output:
-                return None
 
-            if output['status'].isalpha():
-                attr_value = None
-            else:
+            try:
                 attr_value = float(output['status'])
+            except (TypeError, KeyError, ValueError): 
+                return None
 
             if output['mode'] == 'bmc':
                 return attr_value
             else:
-                return (attr_value/float(1000))
+                return (attr_value/1000)
         else:
             raise NotImplementedError
 
@@ -118,18 +119,16 @@ class PddfThermal(ThermalBase):
     def get_low_threshold(self):
         if not self.is_psu_thermal:
             output = self.pddf_obj.get_attr_name_output(self.thermal_obj_name, "temp1_low_threshold")
-            if not output:
-                return None
 
-            if output['status'].isalpha():
-                attr_value = None
-            else:
+            try:
                 attr_value = float(output['status'])
+            except (TypeError, KeyError, ValueError):
+                return None
 
             if output['mode'] == 'bmc':
                 return attr_value
             else:
-                return (attr_value/float(1000))
+                return (attr_value/1000)
         else:
             raise NotImplementedError
 
@@ -174,18 +173,16 @@ class PddfThermal(ThermalBase):
         """
         if not self.is_psu_thermal:
             output = self.pddf_obj.get_attr_name_output(self.thermal_obj_name, "temp1_high_crit_threshold")
-            if not output:
-                return None
 
-            if output['status'].isalpha():
-                attr_value = None
-            else:
+            try:
                 attr_value = float(output['status'])
+            except (TypeError, KeyError, ValueError):
+                return None
 
             if output['mode'] == 'bmc':
                 return attr_value
             else:
-                return (attr_value/float(1000))
+                return (attr_value/1000)
         else:
             raise NotImplementedError
 
@@ -199,18 +196,16 @@ class PddfThermal(ThermalBase):
         """
         if not self.is_psu_thermal:
             output = self.pddf_obj.get_attr_name_output(self.thermal_obj_name, "temp1_low_crit_threshold")
-            if not output:
-                return None
 
-            if output['status'].isalpha():
-                attr_value = None
-            else:
+            try:
                 attr_value = float(output['status'])
+            except (TypeError, KeyError, ValueError):
+                return None
 
             if output['mode'] == 'bmc':
                 return attr_value
             else:
-                return (attr_value/float(1000))
+                return (attr_value/1000)
         else:
             raise NotImplementedError
 

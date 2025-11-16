@@ -54,12 +54,15 @@ class PddfFan(FanBase):
         Returns: String containing fan-name
         """
         if self.is_psu_fan:
+            if 'fan_name' in self.plugin_data['PSU']:
+                return self.plugin_data['PSU']['fan_name'][str(self.fans_psu_index)][str(self.fan_index)]
+
             return "PSU{}_FAN{}".format(self.fans_psu_index, self.fan_index)
         else:
             if 'name' in self.plugin_data['FAN']:
-                return self.plugin_data['FAN']['name'][str(self.fantray_index)]
-            else:
-                return "Fantray{}_{}".format(self.fantray_index, self.fan_index)
+                return self.plugin_data['FAN']['name'][str(self.fantray_index)][str(self.fan_index)]
+
+            return "Fantray{}_{}".format(self.fantray_index, self.fan_index)
 
     def get_presence(self):
         if self.is_psu_fan:
@@ -68,11 +71,12 @@ class PddfFan(FanBase):
             idx = (self.fantray_index-1)*self.platform['num_fans_pertray'] + self.fan_index
             attr_name = "fan" + str(idx) + "_present"
             output = self.pddf_obj.get_attr_name_output("FAN-CTRL", attr_name)
-            if not output:
-                return False
 
-            mode = output['mode']
-            presence = output['status'].rstrip()
+            try:
+                mode = output['mode']
+                presence = output['status'].rstrip()
+            except (TypeError, KeyError):
+                return None
 
             vmap = self.plugin_data['FAN']['present'][mode]['valmap']
 
@@ -99,11 +103,12 @@ class PddfFan(FanBase):
         if self.is_psu_fan:
             device = "PSU{}".format(self.fans_psu_index)
             output = self.pddf_obj.get_attr_name_output(device, "psu_fan_dir")
-            if not output:
-                return None
 
-            mode = output['mode']
-            val = output['status']
+            try:
+                mode = output['mode']
+                val = output['status']
+            except (TypeError, KeyError):
+                return None
 
             val = val.rstrip()
             vmap = self.plugin_data['PSU']['psu_fan_dir'][mode]['valmap']
@@ -117,11 +122,12 @@ class PddfFan(FanBase):
             idx = (self.fantray_index-1)*self.platform['num_fans_pertray'] + self.fan_index
             attr = "fan" + str(idx) + "_direction"
             output = self.pddf_obj.get_attr_name_output("FAN-CTRL", attr)
-            if not output:
-                return None
 
-            mode = output['mode']
-            val = output['status']
+            try:
+                mode = output['mode']
+                val = output['status']
+            except (KeyError, ValueError):
+                return None
 
             val = val.rstrip()
             vmap = self.plugin_data['FAN']['direction'][mode]['valmap']
@@ -144,35 +150,41 @@ class PddfFan(FanBase):
             attr = "psu_fan{}_speed_rpm".format(self.fan_index)
             device = "PSU{}".format(self.fans_psu_index)
             output = self.pddf_obj.get_attr_name_output(device, attr)
-            if not output:
-                return 0
 
-            output['status'] = output['status'].rstrip()
-            if output['status'].isalpha():
-                return 0
-            else:
-                speed = int(float(output['status']))
+            try:
+                speed = int(float(output['status'].rstrip()))
+            except (TypeError, KeyError, ValueError):
+                return None
 
             max_speed = int(self.plugin_data['PSU']['PSU_FAN_MAX_SPEED'])
             speed_percentage = round((speed*100)/max_speed)
             return speed_percentage
         else:
             # TODO This calculation should change based on MAX FAN SPEED
+
+            if 'FAN' not in self.plugin_data or\
+                'FAN_MAX_RPM_SPEED' not in self.plugin_data['FAN']:
+                return self.get_target_speed()
+
             idx = (self.fantray_index-1)*self.platform['num_fans_pertray'] + self.fan_index
-            attr = "fan" + str(idx) + "_pwm"
+            attr = "fan" + str(idx) + "_input"
             output = self.pddf_obj.get_attr_name_output("FAN-CTRL", attr)
 
-            if not output:
-                return 0
+            try:
+                speed = int(float(output['status'].rstrip()))
+            except (TypeError, KeyError, ValueError):
+                return None
 
-            output['status'] = output['status'].rstrip()
-            if output['status'].isalpha():
-                return 0
+            direction = self.get_direction()
+            plugin_dict = self.plugin_data['FAN']['FAN_MAX_RPM_SPEED'][direction]
+            if str(idx - 1) in plugin_dict:
+                max_speed = plugin_dict[str(idx - 1)]
+            elif str((idx - 1) % 2) in plugin_dict:
+                max_speed = plugin_dict[str((idx - 1) % 2)]
             else:
-                fpwm = int(float(output['status']))
+                max_speed = plugin_dict["0"]
 
-            pwm_to_dc = eval(self.plugin_data['FAN']['pwm_to_duty_cycle'])
-            speed_percentage = int(round(pwm_to_dc(fpwm)))
+            speed_percentage = round((speed*100)/int(max_speed))
 
             return speed_percentage
 
@@ -187,15 +199,11 @@ class PddfFan(FanBase):
             attr = "psu_fan{}_speed_rpm".format(self.fan_index)
             device = "PSU{}".format(self.fans_psu_index)
             output = self.pddf_obj.get_attr_name_output(device, attr)
-            if not output:
-                return 0
 
-            output['status'] = output['status'].rstrip()
-
-            if output['status'].replace('.', '', 1).isdigit():
-                speed = int(float(output['status']))
-            else:
-                return 0
+            try:
+                speed = int(float(output['status'].rstrip()))
+            except (TypeError, KeyError, ValueError):
+                return None
 
             rpm_speed = speed
             return rpm_speed
@@ -204,14 +212,10 @@ class PddfFan(FanBase):
             attr = "fan" + str(idx) + "_input"
             output = self.pddf_obj.get_attr_name_output("FAN-CTRL", attr)
 
-            if output is None:
-                return 0
-
-            output['status'] = output['status'].rstrip()
-            if output['status'].isalpha():
-                return 0
-            else:
-                rpm_speed = int(float(output['status']))
+            try:
+                rpm_speed = int(float(output['status'].rstrip()))
+            except (TypeError, KeyError, ValueError):
+                return None
 
             return rpm_speed
 
@@ -231,15 +235,14 @@ class PddfFan(FanBase):
             idx = (self.fantray_index-1)*self.platform['num_fans_pertray'] + self.fan_index
             attr = "fan" + str(idx) + "_pwm"
             output = self.pddf_obj.get_attr_name_output("FAN-CTRL", attr)
-
             if not output:
-                return 0
+                # Return the current speed if target/pwm speed is not defined
+                return self.get_speed()
 
-            output['status'] = output['status'].rstrip()
-            if output['status'].isalpha():
-                return 0
-            else:
-                fpwm = int(float(output['status']))
+            try:
+                fpwm = int(float(output['status'].rstrip()))
+            except (KeyError, ValueError):
+                return None
 
             pwm_to_dc = eval(self.plugin_data['FAN']['pwm_to_duty_cycle'])
             speed_percentage = int(round(pwm_to_dc(fpwm)))

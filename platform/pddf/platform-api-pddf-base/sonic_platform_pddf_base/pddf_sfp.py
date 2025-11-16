@@ -94,6 +94,15 @@ class PddfSfp(SfpOptoeBase):
         Returns:
             A Boolean, True if reset enabled, False if disabled
         """
+        try:
+            cage = self.get_port_or_cage_type()
+            if cage not in [self.SFP_CAGE_TYPE_QSFP,\
+                            self.SFP_CAGE_TYPE_QSFP_DD,\
+                            self.SFP_CAGE_TYPE_OSFP]:
+                return False
+        except AttributeError:
+            pass
+
         reset_status = None
         device = 'PORT{}'.format(self.port_index)
         output = self.pddf_obj.get_attr_name_output(device, 'xcvr_reset')
@@ -196,7 +205,7 @@ class PddfSfp(SfpOptoeBase):
                 lpmode = True
             else:
                 lpmode = False
-        else:
+        elif self.get_presence():
             xcvr_id = self._xcvr_api_factory._get_id()
             if xcvr_id is not None:
                 if xcvr_id == 0x18 or xcvr_id == 0x19 or xcvr_id == 0x1e:
@@ -242,6 +251,15 @@ class PddfSfp(SfpOptoeBase):
         Returns:
             A boolean, True if successful, False if not
         """
+        try:
+            cage = self.get_port_or_cage_type()
+            if cage not in [self.SFP_CAGE_TYPE_QSFP,\
+                            self.SFP_CAGE_TYPE_QSFP_DD,\
+                            self.SFP_CAGE_TYPE_OSFP]:
+                return False
+        except AttributeError:
+            pass
+
         status = False
         device = 'PORT{}'.format(self.port_index)
         path = self.pddf_obj.get_path(device, 'xcvr_reset')

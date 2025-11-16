@@ -21,6 +21,7 @@ import os
 import shutil
 import subprocess
 import sys
+import filecmp
 from sonic_py_common import device_info
 import pddfparse
 
@@ -82,7 +83,9 @@ def main():
 
     if 'custom_kos' in pddf_obj.data['PLATFORM']:
         custom_kos = pddf_obj.data['PLATFORM']['custom_kos']
-        kos.extend(['modprobe -f '+i for i in custom_kos])
+        # Attempt to load the modules without forcing, if fails, load by
+        # forcing.
+        kos.extend([f"modprobe {ko} || modprobe -f {ko}" for ko in custom_kos])
 
     for opt, arg in options:
         if opt in ('-h', '--help'):
@@ -200,10 +203,13 @@ def config_pddf_utils():
         # sonic_platform whl pkg is installed 2 possibilities, 1) bsp 2.0 classes
         # are installed, 2) system rebooted and either pddf/bsp 2.0 classes are already installed
         if os.path.exists(SONIC_PLATFORM_PDDF_WHL_PKG):
-            if not os.path.exists(SONIC_PLATFORM_BSP_WHL_PKG_BK):
+            if not os.path.exists(SONIC_PLATFORM_BSP_WHL_PKG) or \
+                not filecmp.cmp(SONIC_PLATFORM_PDDF_WHL_PKG, SONIC_PLATFORM_BSP_WHL_PKG):
                 # bsp 2.0 classes are installed. Take a backup and copy pddf 2.0 whl pkg
-                log_os_system('mv '+SONIC_PLATFORM_BSP_WHL_PKG+' '+SONIC_PLATFORM_BSP_WHL_PKG_BK, 1)
-                log_os_system('sync', 1)
+                if os.path.exists(SONIC_PLATFORM_BSP_WHL_PKG):
+                   log_os_system('mv '+SONIC_PLATFORM_BSP_WHL_PKG+' '+SONIC_PLATFORM_BSP_WHL_PKG_BK, 1)
+                   log_os_system('sync', 1)
+
                 shutil.copy(SONIC_PLATFORM_PDDF_WHL_PKG, SONIC_PLATFORM_BSP_WHL_PKG)
                 log_os_system('sync', 1)
                 # uninstall the existing bsp whl pkg
