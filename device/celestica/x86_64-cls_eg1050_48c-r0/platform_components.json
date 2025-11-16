@@ -1,0 +1,13 @@
+{
+    "chassis": {
+        "EG1050-48CP": {
+            "component": {
+                "BIOS": {},
+                "ONIE": {},
+                "CPLD COMe":{},
+                "CPLD SW": {},
+                "SSD": {}
+            }
+        }
+    }
+}

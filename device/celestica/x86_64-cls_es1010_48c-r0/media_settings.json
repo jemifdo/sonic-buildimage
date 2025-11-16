@@ -1,0 +1,60 @@
+{
+    "GLOBAL_MEDIA_SETTINGS": {
+        "49-52": {
+            "COPPER-25-1.0M": {
+                "preemphasis": {
+                    "lane0": "0x16440a"
+                },
+                "media": "copper"
+            },
+            "COPPER-25-3.0M": {
+                "preemphasis": {
+                    "lane0": "0x1a400a"
+                },
+                "media": "copper"
+            },
+            "COPPER-25-5.0M": {
+                "preemphasis": {
+                    "lane0": "0x1a400a"
+                },
+                "media": "copper"
+            },
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x0f4605"
+                },
+                "media": "fiber"
+            },
+            "COPPER-10-7.0M": {
+                "preemphasis": {
+                    "lane0": "0x1a400a"
+                },
+                "media": "copper"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x053000"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            },
+            "Default": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        }
+    }
+}

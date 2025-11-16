@@ -1,0 +1,1682 @@
+{
+    "GLOBAL_MEDIA_SETTINGS": {
+        "1-48": {
+            "COPPER-25-1.0M": {
+                "preemphasis": {
+                    "lane0": "0x1a400a"
+                },
+                "media": "copper"
+            },
+            "COPPER-25-3.0M": {
+                "preemphasis": {
+                    "lane0": "0x1a400a"
+                },
+                "media": "copper"
+            },
+            "COPPER-25-5.0M": {
+                "preemphasis": {
+                    "lane0": "0x1a400a"
+                },
+                "media": "copper"
+            },
+            "COPPER-10-1.0M": {
+                "preemphasis": {
+                    "lane0": "0x19410a"
+                },
+                "media": "copper"
+            },
+            "COPPER-10-3.0M": {
+                "preemphasis": {
+                    "lane0": "0x19410a"
+                },
+                "media": "copper"
+            },
+            "COPPER-10-5.0M": {
+                "preemphasis": {
+                    "lane0": "0x19410a"
+                },
+                "media": "copper"
+            },
+            "COPPER-10-7.0M": {
+                "preemphasis": {
+                    "lane0": "0x19410a"
+                },
+                "media": "copper"
+            },
+            "Default": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "49-56": {
+            "COPPER-25-1.0M": {
+                "preemphasis": {
+                    "lane0": "0x1a400a",
+                    "lane1": "0x1a400a",
+                    "lane2": "0x1a400a",
+                    "lane3": "0x1a400a"
+                },
+                "media": "copper"
+            },
+            "COPPER-25-3.0M": {
+                "preemphasis": {
+                    "lane0": "0x1a400a",
+                    "lane1": "0x1a400a",
+                    "lane2": "0x1a400a",
+                    "lane3": "0x1a400a"
+                },
+                "media": "copper"
+            },
+            "COPPER-25-5.0M": {
+                "preemphasis": {
+                    "lane0": "0x1a400a",
+                    "lane1": "0x1a400a",
+                    "lane2": "0x1a400a",
+                    "lane3": "0x1a400a"
+                },
+                "media": "copper"
+            },
+            "COPPER-10-1.0M": {
+                "preemphasis": {
+                    "lane0": "0x19410a",
+                    "lane1": "0x19410a",
+                    "lane2": "0x19410a",
+                    "lane3": "0x19410a"
+                },
+                "media": "copper"
+            },
+            "COPPER-10-3.0M": {
+                "preemphasis": {
+                    "lane0": "0x19410a",
+                    "lane1": "0x19410a",
+                    "lane2": "0x19410a",
+                    "lane3": "0x19410a"
+                },
+                "media": "copper"
+            },
+            "COPPER-10-5.0M": {
+                "preemphasis": {
+                    "lane0": "0x19410a",
+                    "lane1": "0x19410a",
+                    "lane2": "0x19410a",
+                    "lane3": "0x19410a"
+                },
+                "media": "copper"
+            },
+            "COPPER-10-7.0M": {
+                "preemphasis": {
+                    "lane0": "0x19410a",
+                    "lane1": "0x19410a",
+                    "lane2": "0x19410a",
+                    "lane3": "0x19410a"
+                },
+                "media": "copper"
+            },
+            "Default": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "copper"
+            }
+        }
+    },
+    "PORT_MEDIA_SETTINGS": {
+        "1": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x18420a"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x124702"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "2": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x17430a"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x114602"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "3": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x174409"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0f4402"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "4": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x174409"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0f4402"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "5": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x164509"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0e4202"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "6": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x164509"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0e4202"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "7": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0d4002"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "8": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0d4002"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "9": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x144709"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3f02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "10": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3d02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "11": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0b3c02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "12": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0b3c02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "13": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x124a08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x083902"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "14": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073802"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "15": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073802"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "16": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073702"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "17": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073702"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "18": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073702"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "19": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073702"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "20": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x104c08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x053602"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "21": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x104c08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x053602"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "22": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x104d07"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x053602"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "23": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x104d07"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x053602"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "24": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x104d07"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x053602"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "25": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0d4002"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "26": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0d4002"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "27": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0d4002"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "28": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0d4002"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "29": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x144709"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3f02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "30": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x144709"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3f02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "31": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3d02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "32": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x144709"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3f02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "33": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3d02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "34": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x144709"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3f02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "35": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3d02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "36": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3d02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "37": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073702"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "38": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073802"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "39": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073802"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "40": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073802"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "41": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x073802"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "42": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x124a08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x083902"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "43": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x124a08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x083902"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "44": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x124909"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x093a02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "45": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x124909"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x093a02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "46": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x124909"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x093a02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "47": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x124909"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x093a02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "48": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x124909"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0a3b02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "49": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x114b08",
+                    "lane1": "0x114b08",
+                    "lane2": "0x114b08",
+                    "lane3": "0x114b08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0a3b02",
+                    "lane1": "0x0a3b02",
+                    "lane2": "0x0a3b02",
+                    "lane3": "0x0a3b02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "50": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x1a400a",
+                    "lane1": "0x1a400a",
+                    "lane2": "0x1a400a",
+                    "lane3": "0x1a400a"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0a3b02",
+                    "lane1": "0x0a3b02",
+                    "lane2": "0x0a3b02",
+                    "lane3": "0x0a3b02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "51": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x164509",
+                    "lane1": "0x164509",
+                    "lane2": "0x164509",
+                    "lane3": "0x164509"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3f02",
+                    "lane1": "0x0c3f02",
+                    "lane2": "0x0c3f02",
+                    "lane3": "0x0c3f02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "52": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x124a08",
+                    "lane1": "0x124a08",
+                    "lane2": "0x124a08",
+                    "lane3": "0x124a08"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0c3f02",
+                    "lane1": "0x0c3f02",
+                    "lane2": "0x0c3f02",
+                    "lane3": "0x0c3f02"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "53": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154708",
+                    "lane1": "0x154708",
+                    "lane2": "0x154708",
+                    "lane3": "0x154708"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0e4202",
+                    "lane1": "0x0e4202",
+                    "lane2": "0x0e4202",
+                    "lane3": "0x0e4202"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "54": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x164509",
+                    "lane1": "0x164509",
+                    "lane2": "0x164509",
+                    "lane3": "0x164509"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0f4402",
+                    "lane1": "0x0f4402",
+                    "lane2": "0x0f4402",
+                    "lane3": "0x0f4402"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "55": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x154609",
+                    "lane1": "0x154609",
+                    "lane2": "0x154609",
+                    "lane3": "0x154609"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x0f4402",
+                    "lane1": "0x0f4402",
+                    "lane2": "0x0f4402",
+                    "lane3": "0x0f4402"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "copper"
+            }
+        },
+        "56": {
+            "OPTICAL-25": {
+                "preemphasis": {
+                    "lane0": "0x17430a",
+                    "lane1": "0x17430a",
+                    "lane2": "0x17430a",
+                    "lane3": "0x17430a"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-10": {
+                "preemphasis": {
+                    "lane0": "0x124702",
+                    "lane1": "0x124702",
+                    "lane2": "0x124702",
+                    "lane3": "0x124702"
+                },
+                "media": "fiber"
+            },
+            "OPTICAL-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "fiber"
+            },
+            "COPPER-1": {
+                "preemphasis": {
+                    "lane0": "0x14410a",
+                    "lane1": "0x14410a",
+                    "lane2": "0x14410a",
+                    "lane3": "0x14410a"
+                },
+                "media": "copper"
+            }
+        }
+    }
+}

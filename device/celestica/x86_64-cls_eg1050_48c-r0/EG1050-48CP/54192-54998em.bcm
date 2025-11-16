@@ -1,0 +1,103 @@
+### PHY CONFIGURATION FILE
+
+### PHY CONFIGURATIONS FOR 54192
+phy_init_config_chip_id:64 = 54192
+phy_init_config_chip_id:65 = 54192
+phy_init_config_chip_id:66 = 54192
+phy_init_config_chip_id:67 = 54192
+phy_init_config_chip_id:68 = 54192
+phy_init_config_chip_id:69 = 54192
+phy_init_config_chip_id:70 = 54192
+phy_init_config_chip_id:71 = 54192
+
+phy_init_config_macsec:64= 1
+phy_init_config_macsec:65= 1
+phy_init_config_macsec:66= 1
+phy_init_config_macsec:67= 1
+phy_init_config_macsec:68= 1
+phy_init_config_macsec:69= 1
+phy_init_config_macsec:70= 1
+phy_init_config_macsec:71= 1
+
+### PHY CONFIGURATIONS FOR 54998EM
+phy_init_config_chip_id:0 = 54998EM
+phy_init_config_chip_id:1 = 54998EM
+phy_init_config_chip_id:2 = 54998EM
+phy_init_config_chip_id:3 = 54998EM
+phy_init_config_chip_id:4 = 54998EM
+phy_init_config_chip_id:5 = 54998EM
+phy_init_config_chip_id:6 = 54998EM
+phy_init_config_chip_id:7 = 54998EM
+
+phy_init_config_chip_id:32 = 54998EM
+phy_init_config_chip_id:33 = 54998EM
+phy_init_config_chip_id:34 = 54998EM
+phy_init_config_chip_id:35 = 54998EM
+phy_init_config_chip_id:36 = 54998EM
+phy_init_config_chip_id:37 = 54998EM
+phy_init_config_chip_id:38 = 54998EM
+phy_init_config_chip_id:39 = 54998EM
+
+
+### LANE CONFIGURATIONS FOR 54192
+# Line side lanes
+phy_lane_property:32 = 64, 0, 0, 0, 0, 0, 0
+phy_lane_property:34 = 65, 0, 1, 0, 0, 0, 0
+phy_lane_property:36 = 66, 0, 2, 0, 0, 0, 0
+phy_lane_property:38 = 67, 0, 3, 0, 0, 0, 0
+phy_lane_property:40 = 68, 0, 4, 0, 0, 0, 0
+phy_lane_property:42 = 69, 0, 5, 0, 0, 0, 0
+phy_lane_property:44 = 70, 0, 6, 0, 0, 0, 0
+phy_lane_property:46 = 71, 0, 7, 0, 0, 0, 0
+
+
+# System side lanes
+phy_lane_property:33 = 64, 1, 0, 0, 0, 0, 0
+phy_lane_property:35 = 65, 1, 1, 0, 0, 0, 0
+phy_lane_property:37 = 66, 1, 2, 0, 0, 0, 0
+phy_lane_property:39 = 67, 1, 3, 0, 0, 0, 0
+phy_lane_property:41 = 68, 1, 4, 0, 0, 0, 0
+phy_lane_property:43 = 69, 1, 5, 0, 0, 0, 0
+phy_lane_property:45 = 70, 1, 6, 0, 0, 0, 0
+phy_lane_property:47 = 71, 1, 7, 0, 0, 0, 0
+
+### LANE CONFIGURATION FORMAT FOR 54998EM
+
+#Line side configurations
+phy_lane_property:0  = 0, 0, 0, 0, 0, 0, 0
+phy_lane_property:2  = 1, 0, 1, 0, 0, 0, 0
+phy_lane_property:4  = 2, 0, 2, 0, 0, 0, 0
+phy_lane_property:6  = 3, 0, 3, 0, 0, 0, 0
+phy_lane_property:8  = 4, 0, 4, 0, 0, 0, 0
+phy_lane_property:10 = 5, 0, 5, 0, 0, 0, 0
+phy_lane_property:12 = 6, 0, 6, 0, 0, 0, 0
+phy_lane_property:14 = 7, 0, 7, 0, 0, 0, 0
+
+phy_lane_property:16 = 32, 0, 0, 0, 0, 0, 0
+phy_lane_property:18 = 33, 0, 1, 0, 0, 0, 0
+phy_lane_property:20 = 34, 0, 2, 0, 0, 0, 0
+phy_lane_property:22 = 35, 0, 3, 0, 0, 0, 0
+phy_lane_property:24 = 36, 0, 4, 0, 0, 0, 0
+phy_lane_property:26 = 37, 0, 5, 0, 0, 0, 0
+phy_lane_property:28 = 38, 0, 6, 0, 0, 0, 0
+phy_lane_property:30 = 39, 0, 7, 0, 0, 0, 0
+
+#System side configurations
+phy_lane_property:1  = 0, 1, 0, 0, 0, 0, 0
+phy_lane_property:3  = 1, 1, 1, 0, 0, 0, 0
+phy_lane_property:5  = 2, 1, 2, 0, 0, 0, 0
+phy_lane_property:7  = 3, 1, 3, 0, 0, 0, 0
+phy_lane_property:9  = 4, 1, 4, 0, 0, 0, 0
+phy_lane_property:11 = 5, 1, 5, 0, 0, 0, 0
+phy_lane_property:13 = 6, 1, 6, 0, 0, 0, 0
+phy_lane_property:15 = 7, 1, 7, 0, 0, 0, 0
+
+phy_lane_property:17 = 32, 1, 0, 0, 0, 0, 0
+phy_lane_property:19 = 33, 1, 1, 0, 0, 0, 0
+phy_lane_property:21 = 34, 1, 2, 0, 0, 0, 0
+phy_lane_property:23 = 35, 1, 3, 0, 0, 0, 0
+phy_lane_property:25 = 36, 1, 4, 0, 0, 0, 0
+phy_lane_property:27 = 37, 1, 5, 0, 0, 0, 0
+phy_lane_property:29 = 38, 1, 6, 0, 0, 0, 0
+phy_lane_property:31 = 39, 1, 7, 0, 0, 0, 0
+

@@ -1,0 +1,13 @@
+depmod -a
+
+# Initialize mgmt rules
+sh /usr/local/bin/eg1050_mgmt_interface.sh
+
+systemctl enable pddf-platform-init.service
+systemctl enable eg1050-pddf-platform-monitor.service
+
+systemctl start pddf-platform-init.service
+systemctl start eg1050-pddf-platform-monitor.service
+
+sh /usr/local/bin/sku_setup.sh
+sh /usr/local/bin/poe_service_check.sh

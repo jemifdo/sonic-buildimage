@@ -1,0 +1,2 @@
+SAI_INIT_CONFIG_FILE=/usr/share/sonic/hwsku/ds4100-16x2x400G.yml
+SAI_NUM_ECMP_MEMBERS=64

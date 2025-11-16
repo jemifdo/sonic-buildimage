@@ -21,7 +21,7 @@ $(SONIC_ONE_IMAGE)_LAZY_INSTALLS += $(DELL_S6000_PLATFORM_MODULE) \
                                $(DELL_N3248PXE_PLATFORM_MODULE) \
                                $(DELL_N3248TE_PLATFORM_MODULE) \
                                $(DELL_E3224F_PLATFORM_MODULE) \
-			       $(DELL_Z9664F_PLATFORM_MODULE) \
+                               $(DELL_Z9664F_PLATFORM_MODULE) \
                                $(INGRASYS_S8900_54XC_PLATFORM_MODULE) \
                                $(INGRASYS_S8900_64XC_PLATFORM_MODULE) \
                                $(INGRASYS_S9100_PLATFORM_MODULE) \
@@ -52,14 +52,6 @@ $(SONIC_ONE_IMAGE)_LAZY_INSTALLS += $(DELL_S6000_PLATFORM_MODULE) \
                                $(INVENTEC_D7264Q28B_PLATFORM_MODULE) \
                                $(INVENTEC_D6356_PLATFORM_MODULE) \
                                $(INVENTEC_D6332_PLATFORM_MODULE) \
-                               $(CEL_DX010_PLATFORM_MODULE) \
-                               $(CEL_HALIBURTON_PLATFORM_MODULE) \
-                               $(CEL_SEASTONE2_PLATFORM_MODULE) \
-                               $(CEL_DS3000_PLATFORM_MODULE) \
-                               $(CEL_DS1000_PLATFORM_MODULE) \
-                               $(CEL_QUESTONE2_PLATFORM_MODULE) \
-                               $(CEL_SILVERSTONE_V2_PLATFORM_MODULE) \
-                               $(CEL_DS2000_PLATFORM_MODULE) \
                                $(DELTA_AG9032V1_PLATFORM_MODULE) \
                                $(DELTA_AG9064_PLATFORM_MODULE) \
                                $(DELTA_AG5648_PLATFORM_MODULE) \
@@ -79,7 +71,6 @@ $(SONIC_ONE_IMAGE)_LAZY_INSTALLS += $(DELL_S6000_PLATFORM_MODULE) \
                                $(BRCM_XLR_GTS_PLATFORM_MODULE) \
                                $(DELTA_AG9032V2A_PLATFORM_MODULE) \
                                $(JUNIPER_QFX5210_PLATFORM_MODULE) \
-                               $(CEL_SILVERSTONE_PLATFORM_MODULE) \
                                $(JUNIPER_QFX5200_PLATFORM_MODULE) \
                                $(DELTA_AGC032_PLATFORM_MODULE) \
                                $(RUIJIE_B6510_48VS8CQ_PLATFORM_MODULE) \
@@ -106,14 +97,24 @@ $(SONIC_ONE_IMAGE)_LAZY_INSTALLS += $(DELL_S6000_PLATFORM_MODULE) \
                                $(UFISPACE_S9321_64E_PLATFORM_MODULE) \
                                $(UFISPACE_S9321_64EO_PLATFORM_MODULE) \
                                $(MICAS_M2_W6510_48V8C_PLATFORM_MODULE) \
-			       $(MICAS_M2_W6510_48GT4V_PLATFORM_MODULE) \
-			       $(MICAS_M2_W6520_24DC8QC_PLATFORM_MODULE) \
-			       $(MICAS_M2_W6940_128QC_PLATFORM_MODULE) \
-			       $(MICAS_M2_W6930_64QC_PLATFORM_MODULE) \
-			       $(MICAS_M2_W6940_64OC_PLATFORM_MODULE) \
-			       $(MICAS_M2_W6920_32QC2X_PLATFORM_MODULE) \
-			       $(MICAS_M2_W6510_32C_PLATFORM_MODULE) \
-                   $(MICAS_M2_W6520_48C8QC_PLATFORM_MODULE)
+                               $(MICAS_M2_W6510_48GT4V_PLATFORM_MODULE) \
+                               $(MICAS_M2_W6520_24DC8QC_PLATFORM_MODULE) \
+                               $(MICAS_M2_W6940_128QC_PLATFORM_MODULE) \
+                               $(MICAS_M2_W6930_64QC_PLATFORM_MODULE) \
+                               $(MICAS_M2_W6940_64OC_PLATFORM_MODULE) \
+                               $(MICAS_M2_W6920_32QC2X_PLATFORM_MODULE) \
+                               $(MICAS_M2_W6510_32C_PLATFORM_MODULE) \
+                               $(MICAS_M2_W6520_48C8QC_PLATFORM_MODULE) \
+                               $(CLS_DS1000_PLATFORM_MODULE) \
+                               $(CLS_ES1010_PLATFORM_MODULE) \
+                               $(CLS_ES1050_PLATFORM_MODULE) \
+                               $(CLS_EG1050_PLATFORM_MODULE) \
+                               $(CLS_DS2000_PLATFORM_MODULE) \
+                               $(CLS_DS3000_PLATFORM_MODULE) \
+                               $(CLS_DS4000_PLATFORM_MODULE) \
+                               $(CLS_DS4100_PLATFORM_MODULE) \
+                               $(CLS_DS4101_PLATFORM_MODULE) \
+                               $(CLS_DS5000_PLATFORM_MODULE)
 
 $(SONIC_ONE_IMAGE)_LAZY_BUILD_INSTALLS = $(BRCM_OPENNSL_KERNEL) $(BRCM_DNX_OPENNSL_KERNEL)
 ifeq ($(INSTALL_DEBUG_TOOLS),y)
