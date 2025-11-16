@@ -13,6 +13,7 @@ ARG hostname
 
 ENV BUILD_HOSTNAME $hostname
 ENV USER $user
+ENV XDG_DATA_HOME /sonic/target/.share
 
 RUN groupadd -f -r -g $guid g$user
 

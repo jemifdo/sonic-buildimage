@@ -16,17 +16,23 @@ MIRROR_VERSION_FILE=
 
 # The default mirror urls
 DEFAULT_MIRROR_URLS=http://debian-archive.trafficmanager.net/debian/
+DEFAULT_MIRROR_BACKPORT_URLS=http://debian-archive.trafficmanager.net/debian/
 DEFAULT_MIRROR_SECURITY_URLS=http://debian-archive.trafficmanager.net/debian-security/
 
 
 # The debian-archive.trafficmanager.net does not support armhf, use debian.org instead
 if [ "$ARCHITECTURE" == "armhf" ]; then
     DEFAULT_MIRROR_URLS=http://deb.debian.org/debian/
+    DEFAULT_MIRROR_BACKPORT_URLS=http://deb.debian.org/debian/
     DEFAULT_MIRROR_SECURITY_URLS=http://deb.debian.org/debian-security/
 fi
 
 if [ "$DISTRIBUTION" == "buster" ] || [ "$DISTRIBUTION" == "bullseye" ]; then
     DEFAULT_MIRROR_URLS=http://archive.debian.org/debian/
+    DEFAULT_MIRROR_BACKPORT_URLS=http://archive.debian.org/debian/
+    if [ "$DISTRIBUTION" == "buster" ]; then
+        DEFAULT_MIRROR_SECURITY_URLS=http://archive.debian.org/debian-security/
+    fi
 fi
 
 if [ "$MIRROR_SNAPSHOT" == y ]; then
@@ -39,6 +45,7 @@ if [ "$MIRROR_SNAPSHOT" == y ]; then
     fi
 
     DEFAULT_MIRROR_URLS=http://deb.debian.org/debian/,http://packages.trafficmanager.net/snapshot/debian/$DEBIAN_TIMESTAMP/
+    DEFAULT_MIRROR_BACKPORT_URLS=http://deb.debian.org/debian/,http://packages.trafficmanager.net/snapshot/debian/$DEBIAN_TIMESTAMP/
     DEFAULT_MIRROR_SECURITY_URLS=http://deb.debian.org/debian-security/,http://packages.trafficmanager.net/snapshot/debian-security/$DEBIAN_SECURITY_TIMESTAMP/
 
 	if [ "$DISTRIBUTION" == "buster" ] || [ "$DISTRIBUTION" == "bullseye" ]; then
@@ -55,13 +62,14 @@ fi
 # Handle sources list
 [ -z "$MIRROR_URLS" ] && MIRROR_URLS=$DEFAULT_MIRROR_URLS
 [ -z "$MIRROR_SECURITY_URLS" ] && MIRROR_SECURITY_URLS=$DEFAULT_MIRROR_SECURITY_URLS
+[ -z "$MIRROR_BACKPORT_URLS" ] && MIRROR_BACKPORT_URLS=$DEFAULT_MIRROR_BACKPORT_URLS
 
 TEMPLATE=files/apt/sources.list.j2
 [ -f files/apt/sources.list.$ARCHITECTURE.j2 ] && TEMPLATE=files/apt/sources.list.$ARCHITECTURE.j2
 [ -f $CONFIG_PATH/sources.list.j2 ] && TEMPLATE=$CONFIG_PATH/sources.list.j2
 [ -f $CONFIG_PATH/sources.list.$ARCHITECTURE.j2 ] && TEMPLATE=$CONFIG_PATH/sources.list.$ARCHITECTURE.j2
 
-MIRROR_URLS=$MIRROR_URLS MIRROR_SECURITY_URLS=$MIRROR_SECURITY_URLS j2 $TEMPLATE | sed '/^$/N;/^\n$/D' > $CONFIG_PATH/sources.list.$ARCHITECTURE
+MIRROR_URLS=$MIRROR_URLS MIRROR_SECURITY_URLS=$MIRROR_SECURITY_URLS MIRROR_BACKPORT_URLS=$MIRROR_BACKPORT_URLS j2 $TEMPLATE | sed '/^$/N;/^\n$/D' > $CONFIG_PATH/sources.list.$ARCHITECTURE
 if [ "$MIRROR_SNAPSHOT" == y ]; then
     # Set the snapshot mirror, and add the SET_REPR_MIRRORS flag
     sed -i -e "/^#*deb.*packages.trafficmanager.net/! s/^#*deb/#&/" -e "\$a#SET_REPR_MIRRORS" $CONFIG_PATH/sources.list.$ARCHITECTURE

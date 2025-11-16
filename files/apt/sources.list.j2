@@ -12,6 +12,8 @@ deb [arch={{ ARCHITECTURE }}] {{ mirror_url }} {{ DISTRIBUTION }} main contrib {
 deb-src [arch={{ ARCHITECTURE }}] {{ mirror_url }} {{ DISTRIBUTION }} main contrib {{ nonfree_component }}
 deb [arch={{ ARCHITECTURE }}] {{ mirror_url }} {{ DISTRIBUTION }}-updates main contrib {{ nonfree_component }}
 deb-src [arch={{ ARCHITECTURE }}] {{ mirror_url }} {{ DISTRIBUTION }}-updates main contrib {{ nonfree_component }}
+{% endfor %}
+{% for mirror_url in MIRROR_BACKPORT_URLS.split(',') %}
 deb [arch={{ ARCHITECTURE }}] {{ mirror_url }} {{ DISTRIBUTION }}-backports main contrib {{ nonfree_component }}
 {% endfor %}
 {% for mirror_url in MIRROR_SECURITY_URLS.split(',') %}
